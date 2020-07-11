@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 551317510}
   - component: {fileID: 551317514}
   - component: {fileID: 551317513}
+  - component: {fileID: 551317516}
   - component: {fileID: 551317515}
   m_Layer: 0
   m_Name: Player
@@ -283,10 +284,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 551317509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 019506f2f97927d42b5658b7a1d5aafd, type: 3}
+  m_Script: {fileID: 11500000, guid: 811469771ff46fc49931345ad57bf5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ControlledByPlayer: 1
+  lateralForce: 5
+  jumpForce: 1
+--- !u!114 &551317516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551317509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05df28d588747e44a9d243f659f58fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   ControlReach: 1.5
 --- !u!1 &815038607
 GameObject:

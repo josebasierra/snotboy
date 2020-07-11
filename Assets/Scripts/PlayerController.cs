@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float ControlReach = 1.5f;
     BControllable controllable;
 
-
     void Start()
     {
         controllable = GetComponent<BControllable>();
@@ -47,40 +46,25 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, ControlReach);
     }
-    
+
     private BControllable TryGetControllableOnMousePosition()
     {
-        bool InReach(Component other)
+        bool InReach(BControllable other)
         {
             var distance = (other.transform.position - transform.position).sqrMagnitude;
             return distance < ControlReach;
         }
         
-        // Try get controllable object under mouse
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-        if (hit.collider == null)
-        {
-            Debug.Log("no hit");
-            return null;
-        }
+        // Find Controllables in reach
+        var controllables = FindObjectsOfType<BControllable>()
+            .Where(c => c != this)
+            .Where(InReach);
 
-        if (hit.collider.gameObject.GetComponent<BControllable>() == null)
-        {
-            Debug.Log("Object has no controllable");
-            Debug.Log(hit.collider.gameObject.name);
-            Debug.Log(hit.collider.gameObject);
-            return null;
-        }
-        
-        var controllableUnderMouse = hit.collider.gameObject.GetComponent<BControllable>();
+        // Check mouse is over
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (controllableUnderMouse == controllable) return null;
-
-        return InReach(controllableUnderMouse)
-            ? controllableUnderMouse
-            : null;
-
-
+        return controllables
+            .Where(c => c.gameObject.GetComponent<Collider2D>())
+            .FirstOrDefault(c => c.gameObject.GetComponent<Collider2D>().OverlapPoint(mousePos));
     }
 }

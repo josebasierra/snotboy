@@ -15,6 +15,24 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        var mouseControllable = TryGetControllableOnMousePosition();
+        if (mouseControllable != null)
+        {
+            HighlightControllable(mouseControllable);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                controllable = mouseControllable;
+            }
+        }
+        
+        //GetClose...
+        // if hit.collider != null && distance ok && click
+        //remove and add playerController...
+    }
+
     //TODO: Get input in Update method and then process it in FixedUpdate
     void FixedUpdate()
     {
@@ -24,22 +42,12 @@ public class PlayerController : MonoBehaviour
         if (horizontalValue > 0) controllable.OnRightKey();
         if (Input.GetButton("Jump")) controllable.OnJumpKey();
         if (Input.GetButton("Special")) controllable.OnSpecialKey();
-        
-        HighlightControllableUnderMouse();
-
-        //GetClose...
-        // if hit.collider != null && distance ok && click
-        //remove and add playerController...
     }
 
-    private void HighlightControllableUnderMouse()
+    private void HighlightControllable(BControllable ctrl)
     {
-        var mouseControllable = TryGetControllableOnMousePosition();
-        if (mouseControllable == null) return;
-        
-        Debug.DrawLine(this.transform.position, mouseControllable.transform.position, Color.green);
-
-        Debug.Log($"Highlighting object {mouseControllable.gameObject.name}");
+        Debug.DrawLine(this.transform.position, ctrl.transform.position, Color.green);
+        Debug.Log($"Highlighting object {ctrl.gameObject.name}");
     }
     
     private void OnDrawGizmos()

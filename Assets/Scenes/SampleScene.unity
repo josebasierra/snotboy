@@ -313,8 +313,8 @@ GameObject:
   - component: {fileID: 815038611}
   - component: {fileID: 815038610}
   - component: {fileID: 815038609}
-  - component: {fileID: 815038612}
   - component: {fileID: 815038608}
+  - component: {fileID: 815038612}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -442,11 +442,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 815038607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 019506f2f97927d42b5658b7a1d5aafd, type: 3}
+  m_Script: {fileID: 11500000, guid: 811469771ff46fc49931345ad57bf5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ControlledByPlayer: 0
-  ControlReach: 1.5
+  lateralForce: 2
+  jumpForce: 2
 --- !u!1 &1695878389
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 1797753603}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -604,7 +604,7 @@ Transform:
   m_GameObject: {fileID: 1797753601}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 551317512}
   m_RootOrder: 0
@@ -651,7 +651,7 @@ Camera:
     x: 0
     y: 0
     width: 1
-    height: 1
+    height: 100
   near clip plane: 0
   far clip plane: 1000
   field of view: 60

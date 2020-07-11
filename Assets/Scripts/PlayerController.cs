@@ -7,11 +7,14 @@ public class PlayerController : MonoBehaviour
 {
     public float ControlReach = 1.5f;
     BControllable controllable;
+    CameraController cameraController;
 
 
     void Start()
     {
         controllable = GetComponent<BControllable>();
+        cameraController = Camera.main.GetComponent<CameraController>();
+        cameraController.SetTarget(this.transform);
     }
 
 
@@ -19,7 +22,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         var horizontalValue = Input.GetAxis("Horizontal");
-
         if (horizontalValue < 0) controllable.OnLeftKey();
         if (horizontalValue > 0) controllable.OnRightKey();
         if (Input.GetButton("Jump")) controllable.OnJumpKey();
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
             Debug.DrawLine(this.transform.position, closeControllable.transform.position, Color.green);
         }
 
+        
 
         //GetClose...
         // if hit.collider != null && distance ok && click

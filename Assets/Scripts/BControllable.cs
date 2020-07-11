@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class BControllable : MonoBehaviour
 {
     [SerializeField] float lateralForce;
@@ -38,7 +38,7 @@ public class BControllable : MonoBehaviour
         Vector2 currentPosition = transform.position;
         float yOffset = myCollider.bounds.extents.y;
 
-        var hitInfo = Physics2D.Raycast(currentPosition, Vector2.down, yOffset + 0.05f);
+        var hitInfo = Physics2D.Raycast(currentPosition, Vector2.down, yOffset + 0.1f);
 
        
         if (hitInfo.collider != null)

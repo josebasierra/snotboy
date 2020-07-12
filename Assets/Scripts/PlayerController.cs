@@ -67,14 +67,14 @@ public class PlayerController : MonoBehaviour
    
         // Find Controllables in reach
         var controllables = FindObjectsOfType<BControllable>()
-            .Where(c => c != this)
+            .Where(c => c != controllable)
             .Where(InReach);
 
         // Check mouse is over
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         return controllables
-            .Where(c => c.gameObject.GetComponent<Collider2D>())
+            .Where(c => c.gameObject.GetComponent<Collider2D>() != null)
             .FirstOrDefault(c => c.gameObject.GetComponent<Collider2D>().OverlapPoint(mousePos));
     }
 }

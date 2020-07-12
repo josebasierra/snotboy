@@ -7,25 +7,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float controlReach = 4f;
 
-    IControllable controllable;
-    CameraController cameraController;
+    [SerializeField] GameObject Player;
+    [SerializeField] float ControlReach = 4f;
 
-
-    public void SetControlReach(float controlReach)
-    {
-        this.controlReach = controlReach;
-    } 
-
+    private BaseControllable controllable;
+    private CameraController cameraController;
+    private bool canSurrenderControl = false;
 
     private void Start()
     {
-        controllable = GetComponent<IControllable>();
-        cameraController = Camera.main.GetComponent<CameraController>();
-        cameraController.SetTarget(this.transform);
-    }
+        controllable = Player.GetComponent<BaseControllable>();
 
+        cameraController = Camera.main.GetComponent<CameraController>();
+        cameraController.SetTarget(controllable.gameObject.transform);
+    }
 
     private void Update()
     {
@@ -36,13 +32,13 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                var newPlayerController = mouseControllable.gameObject.AddComponent<PlayerController>();
-                newPlayerController.SetControlReach(controlReach);
-
-                cameraController.SetTarget(this.transform);
-
-                Destroy(this); //destroying this instance of PlayerController component  
+                TakeOverControllable(mouseControllable);
             }
+        }
+
+        if (canSurrenderControl && Input.GetKeyDown(KeyCode.F))
+        {
+            SurrenderControl();
         }
     }
 
@@ -57,38 +53,71 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Special")) controllable.OnSpecialKey();
     }
 
+    protected virtual void TakeOverControllable(BaseControllable controllable)
+    {
+        // Hide player if currently under control
+        if (this.controllable.gameObject == Player)
+        {
+            Player.SetActive(false);
+        }
+        
+        // Set new controller
+        this.controllable = controllable;
+        cameraController.SetTarget(controllable.gameObject.transform);
+
+        canSurrenderControl = true;
+    }
+
+    protected virtual void SurrenderControl()
+    {
+        var currentObjectCollider = controllable.gameObject.GetComponent<Collider2D>();
+        var currentPostion = controllable.transform.position;
+        var newPlayerPosition = new Vector2(
+            currentPostion.x,
+            currentPostion.y + currentObjectCollider.bounds.extents.y
+        );
+        
+        Player.SetActive(true);
+        Player.transform.position = newPlayerPosition;
+        controllable = Player.GetComponent<BaseControllable>();
+        cameraController.SetTarget(Player.transform);
+        
+        canSurrenderControl = false;
+    }
 
     private void HighlightControllable(MonoBehaviour ctrl)
     {
-        Debug.DrawLine(this.transform.position, ctrl.transform.position, Color.green);
+        Debug.DrawLine(controllable.gameObject.transform.position, ctrl.transform.position, Color.green);
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
     }
-    
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, controlReach);
+        var position = controllable?.gameObject.transform.position ?? Player.transform.position;
+        Gizmos.DrawWireSphere(position, ControlReach);
     }
 
 
-    private MonoBehaviour TryGetControllableOnMousePosition()
+
+    private BaseControllable TryGetControllableOnMousePosition()
     {
-        bool InReach(GameObject other)
+        bool InReach(BaseControllable other)
         {
-            //var distance = (other.transform.position - transform.position).sqrMagnitude;
-            var distance = Vector3.Distance(other.transform.position, transform.position);
-            return distance < controlReach;
+            var playerPosition = controllable.gameObject.transform.position;
+            var distance = Vector3.Distance(other.transform.position, playerPosition);
+            return distance < ControlReach;
         }
 
         // Find Controllables in reach
-        var controllables = FindObjectsOfType<MonoBehaviour>()
-            .Where(c => c != this);
+        var controllables = FindObjectsOfType<BaseControllable>()
+            .Where(c => c != controllable)
+            .Where(InReach);
 
         // Check mouse is over
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         return controllables
-            .Where(c => c.gameObject.GetComponent<Collider2D>())
+            .Where(c => c.gameObject.GetComponent<Collider2D>() != null)
             .FirstOrDefault(c => c.gameObject.GetComponent<Collider2D>().OverlapPoint(mousePos));
     }
 }

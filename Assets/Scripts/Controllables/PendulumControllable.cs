@@ -4,7 +4,7 @@ using UnityEngine;
 using Interfaces;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class PendulumControllable : MonoBehaviour, IControllable
+public class PendulumControllable : BaseControllable
 {
     [SerializeField] float moveForce = 4f;
     
@@ -17,25 +17,14 @@ public class PendulumControllable : MonoBehaviour, IControllable
     }
 
 
-    public void OnLeftKey()
+    public override void OnLeftKey()
     {
         myRigidbody.AddRelativeForce(new Vector2(-1, 1) * moveForce);
     }
 
 
-    public void OnRightKey()
+    public override void OnRightKey()
     {
         myRigidbody.AddRelativeForce(new Vector2(1, 1) * moveForce);
-    }
-
-
-    public void OnSpecialKey()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnJumpKey()
-    {
-        throw new System.NotImplementedException();
     }
 }

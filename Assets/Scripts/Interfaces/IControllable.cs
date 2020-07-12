@@ -1,6 +1,6 @@
 ﻿namespace Interfaces
 {
-    public interface IControllable
+    public interface BaseControllable
     {
         void OnLeftKey();
         void OnRightKey();

@@ -4,7 +4,7 @@ using UnityEngine;
 using Interfaces;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class StaticControllable : MonoBehaviour, IControllable
+public class StaticControllable : BaseControllable
 {
     [SerializeField] protected Vector2 jumpForce = Vector2.one;
     [SerializeField] protected float jumpCooldown = 0.5f;
@@ -23,7 +23,7 @@ public class StaticControllable : MonoBehaviour, IControllable
 
     // Call following methods on 'FixedUpdate' (physics ticks) :
 
-    public virtual void OnLeftKey()
+    public override void OnLeftKey()
     {
         if (canMove && IsOnGround())
         {
@@ -34,7 +34,7 @@ public class StaticControllable : MonoBehaviour, IControllable
     }
 
 
-    public virtual void OnRightKey()
+    public override void OnRightKey()
     {
         if (canMove && IsOnGround())
         {
@@ -42,18 +42,6 @@ public class StaticControllable : MonoBehaviour, IControllable
             canMove = false;
             Invoke("EnableMove", jumpCooldown);
         }
-    }
-
-
-    public virtual void OnJumpKey()
-    {
-        
-    }
-
-
-    public virtual void OnSpecialKey()
-    {
-
     }
 
 

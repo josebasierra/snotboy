@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 411761555110584661}
   - component: {fileID: 411761555110584665}
   - component: {fileID: 411761555110584666}
-  - component: {fileID: 411761555110584671}
   - component: {fileID: 411761555110584664}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +125,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &411761555110584666
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,19 +152,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.78052235, y: 0.76452875}
   m_EdgeRadius: 0
---- !u!114 &411761555110584671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411761555110584662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05df28d588747e44a9d243f659f58fc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlReach: 4
 --- !u!114 &411761555110584664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,5 +164,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 811469771ff46fc49931345ad57bf5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: {x: 1.5, y: 1.5}
-  jumpCooldown: 0.5
+  jumpForce: {x: 1, y: 1}
+  jumpCooldown: 0.4

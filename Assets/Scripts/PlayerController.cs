@@ -6,25 +6,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float controlReach = 4f;
+    [SerializeField] GameObject Player;
+    [SerializeField] float ControlReach = 4f;
 
-    Controllable controllable;
-    CameraController cameraController;
-
-
-    public void SetControlReach(float controlReach)
-    {
-        this.controlReach = controlReach;
-    } 
-
+    private Controllable controllable;
+    private CameraController cameraController;
+    private bool canSurrenderControl = false;
 
     private void Start()
     {
-        controllable = GetComponent<Controllable>();
+        controllable = Player.GetComponent<Controllable>();
         cameraController = Camera.main.GetComponent<CameraController>();
-        cameraController.SetTarget(this.transform);
+        cameraController.SetTarget(controllable.gameObject.transform);
     }
-
 
     private void Update()
     {
@@ -35,13 +29,13 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                var newPlayerController = mouseControllable.gameObject.AddComponent<PlayerController>();
-                newPlayerController.SetControlReach(controlReach);
-
-                cameraController.SetTarget(this.transform);
-
-                Destroy(this); //destroying this instance of PlayerController component  
+                TakeOverControllable(mouseControllable);
             }
+        }
+
+        if (canSurrenderControl && Input.GetKeyDown(KeyCode.F))
+        {
+            SurrenderControl();
         }
     }
 
@@ -56,27 +50,57 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Special")) controllable.OnSpecialKey();
     }
 
+    protected virtual void TakeOverControllable(Controllable controllable)
+    {
+        // Hide player if currently under control
+        if (this.controllable.gameObject == Player)
+        {
+            Player.SetActive(false);
+        }
+        
+        // Set new controller
+        this.controllable = controllable;
+        cameraController.SetTarget(controllable.gameObject.transform);
+
+        canSurrenderControl = true;
+    }
+
+    protected virtual void SurrenderControl()
+    {
+        var currentObjectCollider = controllable.gameObject.GetComponent<Collider2D>();
+        var currentPostion = controllable.transform.position;
+        var newPlayerPosition = new Vector2(
+            currentPostion.x,
+            currentPostion.y + currentObjectCollider.bounds.extents.y
+        );
+        
+        Player.SetActive(true);
+        Player.transform.position = newPlayerPosition;
+        controllable = Player.GetComponent<Controllable>();
+        cameraController.SetTarget(Player.transform);
+        
+        canSurrenderControl = false;
+    }
 
     private void HighlightControllable(Controllable ctrl)
     {
-        Debug.DrawLine(this.transform.position, ctrl.transform.position, Color.green);
+        Debug.DrawLine(controllable.gameObject.transform.position, ctrl.transform.position, Color.green);
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
     }
-    
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, controlReach);
+        var position = controllable?.gameObject.transform.position ?? Player.transform.position;
+        Gizmos.DrawWireSphere(position, ControlReach);
     }
-
 
     private Controllable TryGetControllableOnMousePosition()
     {
         bool InReach(Controllable other)
         {
-            //var distance = (other.transform.position - transform.position).sqrMagnitude;
-            var distance = Vector3.Distance(other.transform.position, transform.position);
-            return distance < controlReach;
+            var playerPosition = controllable.gameObject.transform.position;
+            var distance = Vector3.Distance(other.transform.position, playerPosition);
+            return distance < ControlReach;
         }
    
         // Find Controllables in reach

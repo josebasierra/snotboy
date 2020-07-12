@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
         var currentPosition = transform.position;
         var targetPosition = target.position;
 
-        var cameraPosition = Vector3.Lerp(currentPosition, targetPosition, smooth);
-        transform.position = cameraPosition;
+        var newPosition = Vector3.Lerp(currentPosition, targetPosition, smooth);
+        transform.position = new Vector3(newPosition.x, newPosition.y, currentPosition.z);
     }
 }

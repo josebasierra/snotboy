@@ -6,11 +6,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float ControlReach = 1.5f;
+    [SerializeField] float controlReach = 4f;
+
     Controllable controllable;
     CameraController cameraController;
 
-    void Start()
+
+    public void SetControlReach(float controlReach)
+    {
+        this.controlReach = controlReach;
+    } 
+
+
+    private void Start()
     {
         controllable = GetComponent<Controllable>();
         cameraController = Camera.main.GetComponent<CameraController>();
@@ -27,24 +35,27 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                controllable = mouseControllable;
+                var newPlayerController = mouseControllable.gameObject.AddComponent<PlayerController>();
+                newPlayerController.SetControlReach(controlReach);
+
+                cameraController.SetTarget(this.transform);
+
+                Destroy(this); //destroying this instance of PlayerController component  
             }
         }
-        
-        //GetClose...
-        // if hit.collider != null && distance ok && click
-        //remove and add playerController...
     }
 
-    //TODO: Get input in Update method and then process it in FixedUpdate
-    void FixedUpdate()
+    //TODO: Get input in Update method and then process it in FixedUpdate (if problems with input delay are noticeable)
+    private void FixedUpdate()
     {
         var horizontalValue = Input.GetAxis("Horizontal");
+
         if (horizontalValue < 0) controllable.OnLeftKey();
         if (horizontalValue > 0) controllable.OnRightKey();
         if (Input.GetButton("Jump")) controllable.OnJumpKey();
         if (Input.GetButton("Special")) controllable.OnSpecialKey();
     }
+
 
     private void HighlightControllable(Controllable ctrl)
     {
@@ -52,17 +63,20 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
     }
     
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, ControlReach);
+        Gizmos.DrawWireSphere(transform.position, controlReach);
     }
+
 
     private Controllable TryGetControllableOnMousePosition()
     {
         bool InReach(Controllable other)
         {
-            var distance = (other.transform.position - transform.position).sqrMagnitude;
-            return distance < ControlReach;
+            //var distance = (other.transform.position - transform.position).sqrMagnitude;
+            var distance = Vector3.Distance(other.transform.position, transform.position);
+            return distance < controlReach;
         }
    
         // Find Controllables in reach

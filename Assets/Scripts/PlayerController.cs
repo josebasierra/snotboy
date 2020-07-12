@@ -7,12 +7,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float ControlReach = 1.5f;
-    BControllable controllable;
+    Controllable controllable;
     CameraController cameraController;
 
     void Start()
     {
-        controllable = GetComponent<BControllable>();
+        controllable = GetComponent<Controllable>();
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(this.transform);
     }
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Special")) controllable.OnSpecialKey();
     }
 
-    private void HighlightControllable(BControllable ctrl)
+    private void HighlightControllable(Controllable ctrl)
     {
         Debug.DrawLine(this.transform.position, ctrl.transform.position, Color.green);
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
@@ -57,16 +57,16 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, ControlReach);
     }
 
-    private BControllable TryGetControllableOnMousePosition()
+    private Controllable TryGetControllableOnMousePosition()
     {
-        bool InReach(BControllable other)
+        bool InReach(Controllable other)
         {
             var distance = (other.transform.position - transform.position).sqrMagnitude;
             return distance < ControlReach;
         }
    
         // Find Controllables in reach
-        var controllables = FindObjectsOfType<BControllable>()
+        var controllables = FindObjectsOfType<Controllable>()
             .Where(c => c != this)
             .Where(InReach);
 

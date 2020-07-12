@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float controlReach = 4f;
 
-    Controllable controllable;
+    IControllable controllable;
     CameraController cameraController;
 
 
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        controllable = GetComponent<Controllable>();
+        controllable = GetComponent<IControllable>();
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(this.transform);
     }
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void HighlightControllable(Controllable ctrl)
+    private void HighlightControllable(MonoBehaviour ctrl)
     {
         Debug.DrawLine(this.transform.position, ctrl.transform.position, Color.green);
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
@@ -70,19 +71,18 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private Controllable TryGetControllableOnMousePosition()
+    private MonoBehaviour TryGetControllableOnMousePosition()
     {
-        bool InReach(Controllable other)
+        bool InReach(GameObject other)
         {
             //var distance = (other.transform.position - transform.position).sqrMagnitude;
             var distance = Vector3.Distance(other.transform.position, transform.position);
             return distance < controlReach;
         }
-   
+
         // Find Controllables in reach
-        var controllables = FindObjectsOfType<Controllable>()
-            .Where(c => c != this)
-            .Where(InReach);
+        var controllables = FindObjectsOfType<MonoBehaviour>()
+            .Where(c => c != this);
 
         // Check mouse is over
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

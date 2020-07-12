@@ -2,11 +2,9 @@
 {
     public interface IControllable
     {
-        void TakeControl(IControllable other);
-        void SurrenderControl();
-
-        void Enable();
-        void Disable();
-
+        void OnLeftKey();
+        void OnRightKey();
+        void OnJumpKey();
+        void OnSpecialKey();
     }
 }

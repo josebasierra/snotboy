@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Interfaces;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class Controllable : MonoBehaviour
+public class StaticControllable : MonoBehaviour, IControllable
 {
-    [SerializeField] Vector2 jumpForce;
-    [SerializeField] float jumpCooldown = 1f;
+    [SerializeField] protected Vector2 jumpForce = Vector2.one;
+    [SerializeField] protected float jumpCooldown = 0.5f;
 
-    Rigidbody2D myRigidbody;
-    Collider2D myCollider;
-    bool canJump = true;
+    protected Rigidbody2D myRigidbody;
+    protected Collider2D myCollider;
+    protected bool canMove = true;
 
 
-    private void Start()
+    protected void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<Collider2D>();
@@ -24,33 +25,29 @@ public class Controllable : MonoBehaviour
 
     public virtual void OnLeftKey()
     {
-        if (canJump && IsOnGround())
+        if (canMove && IsOnGround())
         {
             myRigidbody.AddForce(new Vector2(-1, 1) * jumpForce, ForceMode2D.Impulse);
-            canJump = false;
-            Invoke("EnableJump", jumpCooldown);
+            canMove = false;
+            Invoke("EnableMove", jumpCooldown);
         }
     }
 
 
     public virtual void OnRightKey()
     {
-        if (canJump && IsOnGround())
+        if (canMove && IsOnGround())
         {
             myRigidbody.AddForce(new Vector2(1, 1) * jumpForce, ForceMode2D.Impulse);
-            canJump = false;
-            Invoke("EnableJump", jumpCooldown);
+            canMove = false;
+            Invoke("EnableMove", jumpCooldown);
         }
     }
 
-    //TODO: check if onGround && !isJumping
+
     public virtual void OnJumpKey()
     {
-        //if (IsOnGround())
-        //{
-        //    myRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        //    Debug.Log("OnGround");
-        //}
+        
     }
 
 
@@ -60,7 +57,7 @@ public class Controllable : MonoBehaviour
     }
 
 
-    private bool IsOnGround()
+    protected bool IsOnGround()
     {
         Vector2 currentPosition = transform.position;
         float yOffset = myCollider.bounds.extents.y;
@@ -71,9 +68,9 @@ public class Controllable : MonoBehaviour
     }
 
 
-    private void EnableJump()
+    protected void EnableMove()
     {
-        canJump = true;
+        canMove = true;
     }
 }
 

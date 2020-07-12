@@ -16,7 +16,6 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
         var currentPosition = transform.position;
         var targetPosition = target.position;
 

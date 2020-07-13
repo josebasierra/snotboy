@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   ControlReach: 4
+  HighlightMaterial: {fileID: 2100000, guid: 3ce7e1321d993004b80ff28927d70e5d, type: 2}
+  DefaultObjectMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}

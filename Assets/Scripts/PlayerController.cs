@@ -8,17 +8,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] GameObject Player;
-    [SerializeField] float ControlReach = 4f;
+    [SerializeField] public GameObject Player;
+    [SerializeField] public float ControlReach = 4f;
+    [SerializeField] public Material HighlightMaterial;
+    [SerializeField] public Material DefaultObjectMaterial;
 
     private BaseControllable controllable;
+    private BaseControllable highlightedControllable;
     private CameraController cameraController;
     private bool canSurrenderControl = false;
 
     private void Start()
     {
         controllable = Player.GetComponent<BaseControllable>();
-
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(controllable.gameObject.transform);
     }
@@ -28,13 +30,34 @@ public class PlayerController : MonoBehaviour
         var mouseControllable = TryGetControllableOnMousePosition();
         if (mouseControllable != null)
         {
-            HighlightControllable(mouseControllable);
-
-            if (Input.GetMouseButtonDown(0))
+            if (highlightedControllable != null && highlightedControllable != mouseControllable) 
+                DeHighlightControllable(highlightedControllable);
+            if (mouseControllable != highlightedControllable)
             {
-                TakeOverControllable(mouseControllable);
+                highlightedControllable = mouseControllable;
+                HighlightControllable(mouseControllable);
+            }
+            if (Input.GetMouseButtonDown(0)) TakeOverControllable(mouseControllable);
+        }
+        else
+        {
+            DeHighlightControllable(highlightedControllable);
+            highlightedControllable = null;
+        }
+        
+        
+        if (mouseControllable == null && highlightedControllable != null
+            || mouseControllable != null && highlightedControllable != null && highlightedControllable != mouseControllable)
+        {
+            
+            if (mouseControllable != null && highlightedControllable != null &&
+                highlightedControllable != mouseControllable)
+            {
+                highlightedControllable = mouseControllable;
+                HighlightControllable(mouseControllable);
             }
         }
+        
 
         if (canSurrenderControl && Input.GetKeyDown(KeyCode.F))
         {
@@ -53,17 +76,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Special")) controllable.OnSpecialAction();
     }
 
-    protected virtual void TakeOverControllable(BaseControllable controllable)
+    protected virtual void TakeOverControllable(BaseControllable other)
     {
         // Hide player if currently under control
-        if (this.controllable.gameObject == Player)
+        if (controllable.gameObject == Player)
         {
             Player.SetActive(false);
         }
         
         // Set new controller
-        this.controllable = controllable;
-        cameraController.SetTarget(controllable.gameObject.transform);
+        controllable = other;
+        cameraController.SetTarget(other.gameObject.transform);
 
         canSurrenderControl = true;
     }
@@ -85,19 +108,26 @@ public class PlayerController : MonoBehaviour
         canSurrenderControl = false;
     }
 
-    private void HighlightControllable(MonoBehaviour ctrl)
+    private void HighlightControllable(Component ctrl)
     {
+        ctrl.GetComponent<SpriteRenderer>().material = HighlightMaterial;
+
         Debug.DrawLine(controllable.gameObject.transform.position, ctrl.transform.position, Color.green);
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
     }
 
-    protected virtual void OnDrawGizmos()
+    private void DeHighlightControllable(Component ctrl)
     {
-        var position = controllable?.gameObject.transform.position ?? Player.transform.position;
-        Gizmos.DrawWireSphere(position, ControlReach);
+        if (ctrl == null) return;
+        ctrl.GetComponent<SpriteRenderer>().material = DefaultObjectMaterial;
+        Debug.Log($"De-Highlighting object {ctrl.gameObject.name}");
     }
 
-
+    protected virtual void OnDrawGizmos()
+    {
+        //var position = controllable?.gameObject.transform.position ?? Player.transform.position;
+        //Gizmos.DrawWireSphere(position, ControlReach);
+    }
 
     private BaseControllable TryGetControllableOnMousePosition()
     {

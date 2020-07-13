@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Interfaces;
+
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class StaticControllable : BaseControllable
@@ -11,7 +11,7 @@ public class StaticControllable : BaseControllable
 
     protected Rigidbody2D myRigidbody;
     protected Collider2D myCollider;
-    protected bool canMove = true;
+    protected bool isJumpInCooldown = false;
 
 
     protected void Start()
@@ -25,22 +25,22 @@ public class StaticControllable : BaseControllable
 
     public override void OnLeftKey()
     {
-        if (canMove && IsOnGround())
+        if (!isJumpInCooldown && IsOnGround())
         {
             myRigidbody.AddForce(new Vector2(-1, 1) * jumpForce, ForceMode2D.Impulse);
-            canMove = false;
-            Invoke("EnableMove", jumpCooldown);
+            isJumpInCooldown = true;
+            Invoke("EnableJump", jumpCooldown);
         }
     }
 
 
     public override void OnRightKey()
     {
-        if (canMove && IsOnGround())
+        if (!isJumpInCooldown && IsOnGround())
         {
             myRigidbody.AddForce(new Vector2(1, 1) * jumpForce, ForceMode2D.Impulse);
-            canMove = false;
-            Invoke("EnableMove", jumpCooldown);
+            isJumpInCooldown = true;
+            Invoke("EnableJump", jumpCooldown);
         }
     }
 
@@ -56,9 +56,9 @@ public class StaticControllable : BaseControllable
     }
 
 
-    protected void EnableMove()
+    protected void EnableJump()
     {
-        canMove = true;
+        isJumpInCooldown = false;
     }
 }
 

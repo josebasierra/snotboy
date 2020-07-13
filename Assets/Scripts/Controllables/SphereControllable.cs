@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class PendulumControllable : BaseControllable
+[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
+public class SphereControllable : BaseControllable
 {
     [SerializeField] float moveForce = 4f;
     Rigidbody2D myRigidbody;
@@ -17,12 +17,12 @@ public class PendulumControllable : BaseControllable
 
     public override void OnLeftKey()
     {
-        myRigidbody.AddRelativeForce(new Vector2(-1, 1) * moveForce);
+        myRigidbody.AddForce(new Vector2(-1, 1) * moveForce);
     }
 
 
     public override void OnRightKey()
     {
-        myRigidbody.AddRelativeForce(new Vector2(1, 1) * moveForce);
+        myRigidbody.AddForce(new Vector2(1, 1) * moveForce);
     }
 }

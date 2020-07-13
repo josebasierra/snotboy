@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class FanControllable : StaticControllable
 {
     [SerializeField] GameObject windObject;
@@ -24,6 +25,10 @@ public class FanControllable : StaticControllable
         {
             state = !state;
             windObject.SetActive(state);
+
+            // HACK: (if wind area effector is activated having an object inside, its not affected until moving it, reseting collider parent, etc...)
+            myCollider.enabled = false;
+            myCollider.enabled = true;
 
             canSwitch = false;
             Invoke("EnableSwitch", switchCooldown);

@@ -5,22 +5,22 @@ using UnityEngine;
 
 public class BaseControllable : MonoBehaviour
 {
-    public virtual void OnLeftKey() 
+    public virtual void OnLeftAction() 
     {
 
     }
 
-    public virtual void OnRightKey()
+    public virtual void OnRightAction()
     {
 
     }
 
-    public virtual void OnJumpKey()
+    public virtual void OnJumpAction()
     {
 
     }
 
-    public virtual void OnSpecialKey()
+    public virtual void OnSpecialAction()
     {
 
     }

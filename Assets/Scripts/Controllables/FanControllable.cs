@@ -19,7 +19,7 @@ public class FanControllable : StaticControllable
     }
 
 
-    public override void OnSpecialKey()
+    public override void OnSpecialAction()
     {
         if (canSwitch)
         {

@@ -17,6 +17,6 @@ public class PaperPlaneBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 faceDirection =  (transform.GetChild(1).position - transform.GetChild(0).position).normalized;
-        myRigidbody.AddForce(Vector2.up * Mathf.Abs(faceDirection.y) * Physics.gravity);
+        myRigidbody.AddForce(Vector2.up * Mathf.Abs(faceDirection.y) * Physics.gravity * myRigidbody.gravityScale);
     }
 }

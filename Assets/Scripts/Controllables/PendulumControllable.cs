@@ -15,13 +15,13 @@ public class PendulumControllable : BaseControllable
     }
 
 
-    public override void OnLeftKey()
+    public override void OnLeftAction()
     {
         myRigidbody.AddRelativeForce(new Vector2(-1, 1) * moveForce);
     }
 
 
-    public override void OnRightKey()
+    public override void OnRightAction()
     {
         myRigidbody.AddRelativeForce(new Vector2(1, 1) * moveForce);
     }

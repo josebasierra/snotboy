@@ -47,10 +47,10 @@ public class PlayerController : MonoBehaviour
     {
         var horizontalValue = Input.GetAxis("Horizontal");
 
-        if (horizontalValue < 0) controllable.OnLeftKey();
-        if (horizontalValue > 0) controllable.OnRightKey();
-        if (Input.GetButton("Jump")) controllable.OnJumpKey();
-        if (Input.GetButton("Special")) controllable.OnSpecialKey();
+        if (horizontalValue < 0) controllable.OnLeftAction();
+        if (horizontalValue > 0) controllable.OnRightAction();
+        if (Input.GetButton("Jump")) controllable.OnJumpAction();
+        if (Input.GetButton("Special")) controllable.OnSpecialAction();
     }
 
     protected virtual void TakeOverControllable(BaseControllable controllable)

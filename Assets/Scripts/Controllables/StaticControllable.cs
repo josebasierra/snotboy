@@ -23,7 +23,7 @@ public class StaticControllable : BaseControllable
 
     // Call following methods on 'FixedUpdate' (physics ticks) :
 
-    public override void OnLeftKey()
+    public override void OnLeftAction()
     {
         if (!isJumpInCooldown && IsOnGround())
         {
@@ -34,7 +34,7 @@ public class StaticControllable : BaseControllable
     }
 
 
-    public override void OnRightKey()
+    public override void OnRightAction()
     {
         if (!isJumpInCooldown && IsOnGround())
         {

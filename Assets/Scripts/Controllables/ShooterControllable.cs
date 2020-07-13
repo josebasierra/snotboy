@@ -19,7 +19,7 @@ public class ShooterControllable : StaticControllable
         Vector2 currentPosition = transform.position;
     }
 
-    public override void OnSpecialKey()
+    public override void OnSpecialAction()
     {
         
     }

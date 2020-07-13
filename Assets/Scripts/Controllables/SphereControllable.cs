@@ -15,13 +15,13 @@ public class SphereControllable : BaseControllable
     }
 
 
-    public override void OnLeftKey()
+    public override void OnLeftAction()
     {
         myRigidbody.AddForce(new Vector2(-1, 1) * moveForce);
     }
 
 
-    public override void OnRightKey()
+    public override void OnRightAction()
     {
         myRigidbody.AddForce(new Vector2(1, 1) * moveForce);
     }

@@ -4,22 +4,30 @@ using UnityEngine;
 using System;
 
 public class PlayerController : MonoBehaviour
-{ 
+{
+    [SerializeField] float controlReach = 4f;
+    [SerializeField] GameObject originalBody;
+    [SerializeField] Material highlightMaterial;
+
+    GameObject objectUnderControl;
     IMovement movement;
     IInteractable activable;
 
     CameraController cameraController;
 
+    //TODO: Create highlight component responsible of highlighting an object?
     GameObject highlighted;
     Material originalMaterial;
 
 
     void Start()
     {
-        movement = GetComponent<IMovement>();
-        activable = GetComponent<IInteractable>();
+        objectUnderControl = originalBody;
+        movement = objectUnderControl.GetComponent<IMovement>();
+        activable = objectUnderControl.GetComponent<IInteractable>();
+
         cameraController = Camera.main.GetComponent<CameraController>();
-        cameraController.SetTarget(transform);
+        cameraController.SetTarget(objectUnderControl.transform);
     }
 
 
@@ -29,11 +37,11 @@ public class PlayerController : MonoBehaviour
 
         DeHighlightControllable(highlighted);
 
-        var castStart = transform.position;
+        var castStart = objectUnderControl.transform.position;
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        var castDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        var castDistance = Mathf.Min(Vector2.Distance(castStart, mousePosition), PlayerData.Instance().GetControlReach());
+        var castDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - castStart;
+        var castDistance = Mathf.Min(Vector2.Distance(castStart, mousePosition), controlReach);
 
         var intersectedObject = GetIntersectedObject(castStart, castDirection, castDistance);
 
@@ -47,18 +55,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && controllableObjectFound)
         {
             TakeOver(intersectedObject);
-            DeHighlightControllable(highlighted);
         }
         
         if (Input.GetButtonDown("Fire2") && !CompareTag("Player"))
         {
-            var objectToControl = PlayerData.Instance().GetPlayerBody();
-
+            var objectToControl = originalBody;
             //TODO: Limitate distance (smaller than control reach)
             ActivateAndPlaceObject(objectToControl, mousePosition);
 
             TakeOver(objectToControl);
-            DeHighlightControllable(highlighted);
         }
     }
 
@@ -114,15 +119,16 @@ public class PlayerController : MonoBehaviour
     {
         if (objectToControl == null) return;
 
-        if (this.gameObject == PlayerData.Instance().GetPlayerBody())
-
+        if (objectUnderControl == originalBody)
         {
-            gameObject.SetActive(false);
+            objectUnderControl.SetActive(false);
         }
 
-        objectToControl.AddComponent<PlayerController>();
+        objectUnderControl = objectToControl;
+        movement = objectUnderControl.GetComponent<IMovement>();
+        activable = objectUnderControl.GetComponent<IInteractable>();
 
-        Destroy(this);
+        cameraController.SetTarget(objectUnderControl.transform);
     }
 
 
@@ -136,7 +142,7 @@ public class PlayerController : MonoBehaviour
         );
 
 
-        var playerBody = PlayerData.Instance().GetPlayerBody();
+        var playerBody = originalBody;
         playerBody.SetActive(true);
         playerBody.transform.position = newPlayerPosition;
         playerBody.AddComponent<PlayerController>();
@@ -148,7 +154,7 @@ public class PlayerController : MonoBehaviour
     private void HighlightControllable(GameObject ctrl)
     {
         originalMaterial = ctrl.GetComponent<SpriteRenderer>().material;
-        ctrl.GetComponent<SpriteRenderer>().material = PlayerData.Instance().GetHighlightMaterial(); ;
+        ctrl.GetComponent<SpriteRenderer>().material = highlightMaterial;
 
         //Debug.DrawLine(gameObject.transform.position, ctrl.transform.position, Color.green);
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
@@ -171,10 +177,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            Gizmos.DrawWireSphere(transform.position, PlayerData.Instance().GetControlReach());
+            Gizmos.DrawWireSphere(objectUnderControl.transform.position, controlReach);
         }
     }
-
-
-
 }

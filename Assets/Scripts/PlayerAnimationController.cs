@@ -5,26 +5,18 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     Animator animator;
-    PlayerController playerController;
     Rigidbody2D myRigidbody;
 
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        playerController = GetComponent<PlayerController>();
         myRigidbody = GetComponent<Rigidbody2D>();
     }
 
     // TODO: Fix animation error when leaving object
     void Update()
     {
-        if (playerController == null)
-        {
-            playerController = GetComponent<PlayerController>();
-            return;
-        }
-
         var inputDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         if (inputDirection.x != 0)

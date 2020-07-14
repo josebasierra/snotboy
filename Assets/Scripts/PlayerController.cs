@@ -8,10 +8,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float controlReach = 4f;
     [SerializeField] GameObject originalBody;
     [SerializeField] Material highlightMaterial;
+    [SerializeField] Transform playerLight;
 
     GameObject objectUnderControl;
     IMovement movement;
-    IInteractable activable;
+    IInteractable interactable;
 
     CameraController cameraController;
 
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         objectUnderControl = originalBody;
         movement = objectUnderControl.GetComponent<IMovement>();
-        activable = objectUnderControl.GetComponent<IInteractable>();
+        interactable = objectUnderControl.GetComponent<IInteractable>();
 
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(objectUnderControl.transform);
@@ -37,11 +38,11 @@ public class PlayerController : MonoBehaviour
 
         DeHighlightControllable(highlighted);
 
-        var castStart = objectUnderControl.transform.position;
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 castStart = objectUnderControl.transform.position;
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        var castDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - castStart;
-        var castDistance = Mathf.Min(Vector2.Distance(castStart, mousePosition), controlReach);
+        Vector2 castDirection = (mousePosition - castStart).normalized;
+        float castDistance = Mathf.Min(Vector2.Distance(castStart, mousePosition), controlReach);
 
         var intersectedObject = GetIntersectedObject(castStart, castDirection, castDistance);
 
@@ -57,13 +58,19 @@ public class PlayerController : MonoBehaviour
             TakeOver(intersectedObject);
         }
         
-        if (Input.GetButtonDown("Fire2") && !CompareTag("Player"))
+        if (Input.GetButtonDown("Fire2") && !objectUnderControl.CompareTag("Player"))
         {
-            var objectToControl = originalBody;
-            //TODO: Limitate distance (smaller than control reach)
-            ActivateAndPlaceObject(objectToControl, mousePosition);
+            Vector2 objectUnderControlExtents = objectUnderControl.GetComponent<Collider2D>().bounds.extents;
+            var hitData = Physics2D.CircleCast(castStart, 0.1f, castDirection, objectUnderControlExtents.magnitude);
 
-            TakeOver(objectToControl);
+            if (hitData.collider == null)
+            {
+                Vector2 objectUnderControlPosition = objectUnderControl.transform.position;
+                var placePosition = objectUnderControlPosition + castDirection * objectUnderControlExtents.magnitude;
+                ActivateAndPlaceObject(originalBody, placePosition);
+
+                TakeOver(originalBody);
+            }
         }
     }
 
@@ -80,9 +87,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // Special interaction logic
-        if (activable != null && Input.GetButton("Special"))
+        if (interactable != null && Input.GetButton("Special"))
         {
-            activable.Interact();
+            interactable.Interact();
         }
     }
 
@@ -106,12 +113,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void ActivateAndPlaceObject(GameObject gameobject, Vector2 targetPosition)
+    void ActivateAndPlaceObject(GameObject objectToPlace, Vector2 targetPosition)
     {
-        if (gameobject == null) return;
+        if (objectToPlace == null) return;
 
-        gameobject.SetActive(true);
-        gameobject.transform.position = targetPosition;
+        objectToPlace.SetActive(true);
+        objectToPlace.transform.position = targetPosition;
     }
 
 
@@ -126,28 +133,30 @@ public class PlayerController : MonoBehaviour
 
         objectUnderControl = objectToControl;
         movement = objectUnderControl.GetComponent<IMovement>();
-        activable = objectUnderControl.GetComponent<IInteractable>();
+        interactable = objectUnderControl.GetComponent<IInteractable>();
 
+        //update light position
+        playerLight.transform.position = objectUnderControl.transform.position;
+        playerLight.parent = objectUnderControl.transform;
+
+        //update camera position
         cameraController.SetTarget(objectUnderControl.transform);
     }
 
 
     void SurrenderControl()
     {
-        var currentObjectCollider = GetComponent<Collider2D>();
+        var currentObjectCollider = objectUnderControl.GetComponent<Collider2D>();
         var currentPosition = transform.position;
         var newPlayerPosition = new Vector2(
             currentPosition.x,
             currentPosition.y + currentObjectCollider.bounds.extents.y
         );
 
+        Debug.Log(currentObjectCollider.bounds.extents.y);
 
-        var playerBody = originalBody;
-        playerBody.SetActive(true);
-        playerBody.transform.position = newPlayerPosition;
-        playerBody.AddComponent<PlayerController>();
-
-        Destroy(this);
+        originalBody.SetActive(true);
+        originalBody.transform.position = newPlayerPosition;
     }
 
 
@@ -156,8 +165,7 @@ public class PlayerController : MonoBehaviour
         originalMaterial = ctrl.GetComponent<SpriteRenderer>().material;
         ctrl.GetComponent<SpriteRenderer>().material = highlightMaterial;
 
-        //Debug.DrawLine(gameObject.transform.position, ctrl.transform.position, Color.green);
-        Debug.Log($"Highlighting object {ctrl.gameObject.name}");
+        //Debug.Log($"Highlighting object {ctrl.gameObject.name}");
 
         highlighted = ctrl;
     }
@@ -167,7 +175,7 @@ public class PlayerController : MonoBehaviour
     {
         if (ctrl == null) return;
         ctrl.GetComponent<SpriteRenderer>().material = originalMaterial;
-        Debug.Log($"De-Highlighting object {ctrl.gameObject.name}");
+        //Debug.Log($"De-Highlighting object {ctrl.gameObject.name}");
 
         highlighted = null;
     }

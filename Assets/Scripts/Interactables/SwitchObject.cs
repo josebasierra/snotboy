@@ -32,6 +32,6 @@ public class SwitchObject : MonoBehaviour, IInteractable
 
     void EnableSwitch()
     {
-        isOnCooldown = true;
+        isOnCooldown = false;
     }
 }

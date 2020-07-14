@@ -311,6 +311,11 @@ PrefabInstance:
       propertyPath: originalBody
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 211000670355440350, guid: 90edfccaa60dc544f986273b535bc83d,
+        type: 3}
+      propertyPath: controlReach
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 211000670355440351, guid: 90edfccaa60dc544f986273b535bc83d,
         type: 3}
       propertyPath: m_Name

@@ -5,17 +5,19 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] Material HighlightMaterial;
+    [SerializeField] Material DefaultObjectMaterial;
+
     IMovement movement;
     IInteractable activable;
 
     CameraController cameraController;
-
+    GameObject highlighted;
 
     void Start()
     {
         movement = GetComponent<IMovement>();
         activable = GetComponent<IInteractable>();
-
         cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(transform);
     }
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (highlighted != null) DeHighlightControllable(highlighted);
+
         // Special interaction logic
         if (activable != null && Input.GetButton("Special"))
         {
@@ -40,10 +44,12 @@ public class PlayerController : MonoBehaviour
 
         if (intersectedObject != null && intersectedObject.GetComponent<Controllable>())
         {
-            Highlight(intersectedObject);
+            HighlightControllable(intersectedObject);
+            highlighted = intersectedObject;
             if (Input.GetButtonDown("Fire1")) TakeOver(intersectedObject);
-        }
 
+        }
+        
         bool canSurrenderControl = !CompareTag("Player");
         if (canSurrenderControl && Input.GetKeyDown(KeyCode.F))
         {
@@ -88,6 +94,7 @@ public class PlayerController : MonoBehaviour
         if (objectToControl == null) return;
 
         if (this.gameObject == PlayerData.Instance().GetPlayerBody())
+
         {
             gameObject.SetActive(false);
         }
@@ -107,6 +114,7 @@ public class PlayerController : MonoBehaviour
             currentPosition.y + currentObjectCollider.bounds.extents.y
         );
 
+
         var playerBody = PlayerData.Instance().GetPlayerBody();
         playerBody.SetActive(true);
         playerBody.transform.position = newPlayerPosition;
@@ -116,23 +124,30 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void Highlight(GameObject gameobject)
+    private void HighlightControllable(GameObject ctrl)
     {
-        //hightlight effect (shader, particles, ...)
-        Debug.Log($"Highlighting object {gameobject.name}");
+        ctrl.GetComponent<SpriteRenderer>().material = HighlightMaterial;
+
+        //Debug.DrawLine(gameObject.transform.position, ctrl.transform.position, Color.green);
+        Debug.Log($"Highlighting object {ctrl.gameObject.name}");
     }
 
 
-    void OnDrawGizmos()
+    private void DeHighlightControllable(GameObject ctrl)
+    {
+        if (ctrl == null) return;
+        ctrl.GetComponent<SpriteRenderer>().material = DefaultObjectMaterial;
+        Debug.Log($"De-Highlighting object {ctrl.gameObject.name}");
+    }
+
+
+    protected virtual void OnDrawGizmos()
     {
         if (Application.isPlaying)
         {
             Gizmos.DrawWireSphere(transform.position, PlayerData.Instance().GetControlReach());
         }
     }
-
-
-
 
 
 

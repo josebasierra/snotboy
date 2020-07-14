@@ -1,123 +1,139 @@
-﻿using Interfaces;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
+    IMovement movement;
+    IInteractable activable;
 
-    [SerializeField] GameObject Player;
-    [SerializeField] float ControlReach = 4f;
+    CameraController cameraController;
 
-    private BaseControllable controllable;
-    private CameraController cameraController;
-    private bool canSurrenderControl = false;
 
-    private void Start()
+    void Start()
     {
-        controllable = Player.GetComponent<BaseControllable>();
+        movement = GetComponent<IMovement>();
+        activable = GetComponent<IInteractable>();
 
         cameraController = Camera.main.GetComponent<CameraController>();
-        cameraController.SetTarget(controllable.gameObject.transform);
+        cameraController.SetTarget(transform);
     }
 
-    private void Update()
-    {
-        var mouseControllable = TryGetControllableOnMousePosition();
-        if (mouseControllable != null)
-        {
-            HighlightControllable(mouseControllable);
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                TakeOverControllable(mouseControllable);
-            }
+    void Update()
+    {
+        // Special interaction logic
+        if (activable != null && Input.GetButton("Special"))
+        {
+            activable.Interact();
         }
 
+        // Control objects logic
+        var castStart = transform.position;
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        var castDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        var castDistance = Mathf.Min(Vector2.Distance(castStart, mousePosition), PlayerData.Instance().GetControlReach());
+
+        var intersectedObject = GetIntersectedObject(castStart, castDirection, castDistance);
+
+        if (intersectedObject != null && intersectedObject.GetComponent<Controllable>())
+        {
+            Highlight(intersectedObject);
+            if (Input.GetButtonDown("Fire1")) TakeOver(intersectedObject);
+        }
+
+        bool canSurrenderControl = !CompareTag("Player");
         if (canSurrenderControl && Input.GetKeyDown(KeyCode.F))
         {
             SurrenderControl();
         }
     }
 
-    //TODO: Get input in Update method and then process it in FixedUpdate (if problems with input delay are noticeable)
-    private void FixedUpdate()
-    {
-        var horizontalValue = Input.GetAxis("Horizontal");
 
-        if (horizontalValue < 0) controllable.OnLeftAction();
-        if (horizontalValue > 0) controllable.OnRightAction();
-        if (Input.GetButton("Jump")) controllable.OnJumpAction();
-        if (Input.GetButton("Special")) controllable.OnSpecialAction();
-    }
-
-    protected virtual void TakeOverControllable(BaseControllable controllable)
+    void FixedUpdate()
     {
-        // Hide player if currently under control
-        if (this.controllable.gameObject == Player)
+        // Movement logic
+        if (movement != null)
         {
-            Player.SetActive(false);
+            var xDirection = Input.GetAxis("Horizontal");
+            var yDirection = Input.GetAxis("Vertical");
+            var moveDirection = new Vector2(xDirection, yDirection);
+            movement.Move(moveDirection);
         }
-        
-        // Set new controller
-        this.controllable = controllable;
-        cameraController.SetTarget(controllable.gameObject.transform);
-
-        canSurrenderControl = true;
     }
 
-    protected virtual void SurrenderControl()
+
+    GameObject GetIntersectedObject(Vector2 from, Vector2 direction, float distance)
     {
-        var currentObjectCollider = controllable.gameObject.GetComponent<Collider2D>();
-        var currentPostion = controllable.transform.position;
+        direction = direction.normalized;
+        var hitData = Physics2D.CircleCast(from, 0.05f, direction, distance);
+
+        if (hitData.collider != null)
+        {
+            Debug.DrawLine(from, hitData.point, Color.red);
+            return hitData.collider.gameObject;
+        }
+        else
+        {
+            Debug.DrawLine(from, from + direction.normalized * distance, Color.green);
+            return null;
+        }
+    }
+
+
+    void TakeOver(GameObject objectToControl)
+    {
+        if (objectToControl == null) return;
+
+        if (this.gameObject == PlayerData.Instance().GetPlayerBody())
+        {
+            gameObject.SetActive(false);
+        }
+
+        objectToControl.AddComponent<PlayerController>();
+
+        Destroy(this);
+    }
+
+
+    void SurrenderControl()
+    {
+        var currentObjectCollider = gameObject.GetComponent<Collider2D>();
+        var currentPosition = transform.position;
         var newPlayerPosition = new Vector2(
-            currentPostion.x,
-            currentPostion.y + currentObjectCollider.bounds.extents.y
+            currentPosition.x,
+            currentPosition.y + currentObjectCollider.bounds.extents.y
         );
-        
-        Player.SetActive(true);
-        Player.transform.position = newPlayerPosition;
-        controllable = Player.GetComponent<BaseControllable>();
-        cameraController.SetTarget(Player.transform);
-        
-        canSurrenderControl = false;
-    }
 
-    private void HighlightControllable(MonoBehaviour ctrl)
-    {
-        Debug.DrawLine(controllable.gameObject.transform.position, ctrl.transform.position, Color.green);
-        Debug.Log($"Highlighting object {ctrl.gameObject.name}");
-    }
+        var playerBody = PlayerData.Instance().GetPlayerBody();
+        playerBody.SetActive(true);
+        playerBody.transform.position = newPlayerPosition;
+        playerBody.AddComponent<PlayerController>();
 
-    protected virtual void OnDrawGizmos()
-    {
-        var position = controllable?.gameObject.transform.position ?? Player.transform.position;
-        Gizmos.DrawWireSphere(position, ControlReach);
+        Destroy(this);
     }
 
 
-
-    private BaseControllable TryGetControllableOnMousePosition()
+    void Highlight(GameObject gameobject)
     {
-        bool InReach(BaseControllable other)
+        //hightlight effect (shader, particles, ...)
+        Debug.Log($"Highlighting object {gameobject.name}");
+    }
+
+
+    void OnDrawGizmos()
+    {
+        if (Application.isPlaying)
         {
-            var playerPosition = controllable.gameObject.transform.position;
-            var distance = Vector3.Distance(other.transform.position, playerPosition);
-            return distance < ControlReach;
+            Gizmos.DrawWireSphere(transform.position, PlayerData.Instance().GetControlReach());
         }
-
-        // Find Controllables in reach
-        var controllables = FindObjectsOfType<BaseControllable>()
-            .Where(c => c != controllable)
-            .Where(InReach);
-
-        // Check mouse is over
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        return controllables
-            .Where(c => c.gameObject.GetComponent<Collider2D>() != null)
-            .FirstOrDefault(c => c.gameObject.GetComponent<Collider2D>().OverlapPoint(mousePos));
     }
+
+
+
+
+
+
 }

@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 2616557273015762981}
   - component: {fileID: 2616557273015762980}
   - component: {fileID: 2616557273015762983}
-  - component: {fileID: 2616557273015762982}
+  - component: {fileID: 1133514433}
+  - component: {fileID: 1133514432}
+  - component: {fileID: 1133514431}
   m_Layer: 0
   m_Name: Fan
   m_TagString: Untagged
@@ -132,7 +134,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2616557273015762982
+--- !u!114 &1133514433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,13 +143,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 2616557273015763161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0abf0f06aa6fe941b16f5fc43b34436, type: 3}
+  m_Script: {fileID: 11500000, guid: ca6f91da38883bf4fb2bcbdf1269fb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1133514432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616557273015763161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b30e8a18fb11f41ac26e1e5678c2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: {x: 1, y: 1}
   jumpCooldown: 0.5
-  windObject: {fileID: 4568639313390228087}
-  switchCooldown: 0.5
+--- !u!114 &1133514431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616557273015763161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240abd9c5bc8326438258a1ecdc1f728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchableObject: {fileID: 4568639313390228087}
+  switchCooldown: 0.2
 --- !u!1 &2616557274598205035
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +185,7 @@ GameObject:
   - component: {fileID: 2616557274598205032}
   - component: {fileID: 2616557274598205047}
   - component: {fileID: 2616557274598205033}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WindEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

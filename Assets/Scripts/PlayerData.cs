@@ -8,6 +8,7 @@ public class PlayerData : MonoBehaviour
 {
     [SerializeField] GameObject playerBody;
     [SerializeField] float controlReach;
+    [SerializeField] Material highlightMaterial;
 
     private static PlayerData _instance;
 
@@ -15,18 +16,21 @@ public class PlayerData : MonoBehaviour
     public static PlayerData Instance()
     { 
         return _instance; 
-    } 
-
+    }
 
     public float GetControlReach()
     {
         return controlReach;
     }
 
-
     public GameObject GetPlayerBody()
     {
         return playerBody;
+    }
+
+    public Material GetHighlightMaterial()
+    {
+        return highlightMaterial;
     }
 
 

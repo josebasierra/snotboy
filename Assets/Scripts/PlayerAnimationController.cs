@@ -8,6 +8,7 @@ public class PlayerAnimationController : MonoBehaviour
     PlayerController playerController;
     Rigidbody2D myRigidbody;
 
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -18,7 +19,11 @@ public class PlayerAnimationController : MonoBehaviour
     // TODO: Fix animation error when leaving object
     void Update()
     {
-        if (playerController == null) return;
+        if (playerController == null)
+        {
+            playerController = GetComponent<PlayerController>();
+            return;
+        }
 
         var inputDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 

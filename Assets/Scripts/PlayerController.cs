@@ -4,15 +4,15 @@ using UnityEngine;
 using System;
 
 public class PlayerController : MonoBehaviour
-{
-    [SerializeField] Material HighlightMaterial;
-    [SerializeField] Material DefaultObjectMaterial;
-
+{ 
     IMovement movement;
     IInteractable activable;
 
     CameraController cameraController;
+
     GameObject highlighted;
+    Material originalMaterial;
+
 
     void Start()
     {
@@ -25,15 +25,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (highlighted != null) DeHighlightControllable(highlighted);
-
-        // Special interaction logic
-        if (activable != null && Input.GetButton("Special"))
-        {
-            activable.Interact();
-        }
-
         // Control objects logic
+
+        DeHighlightControllable(highlighted);
+
         var castStart = transform.position;
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -42,18 +37,28 @@ public class PlayerController : MonoBehaviour
 
         var intersectedObject = GetIntersectedObject(castStart, castDirection, castDistance);
 
-        if (intersectedObject != null && intersectedObject.GetComponent<Controllable>())
+        bool controllableObjectFound = intersectedObject != null && intersectedObject.GetComponent<Controllable>();
+
+        if (controllableObjectFound)
         {
             HighlightControllable(intersectedObject);
-            highlighted = intersectedObject;
-            if (Input.GetButtonDown("Fire1")) TakeOver(intersectedObject);
+        }
 
+        if (Input.GetButtonDown("Fire1") && controllableObjectFound)
+        {
+            TakeOver(intersectedObject);
+            DeHighlightControllable(highlighted);
         }
         
-        bool canSurrenderControl = !CompareTag("Player");
-        if (canSurrenderControl && Input.GetKeyDown(KeyCode.F))
+        if (Input.GetButtonDown("Fire2") && !CompareTag("Player"))
         {
-            SurrenderControl();
+            var objectToControl = PlayerData.Instance().GetPlayerBody();
+
+            //TODO: Limitate distance (smaller than control reach)
+            ActivateAndPlaceObject(objectToControl, mousePosition);
+
+            TakeOver(objectToControl);
+            DeHighlightControllable(highlighted);
         }
     }
 
@@ -68,13 +73,20 @@ public class PlayerController : MonoBehaviour
             var moveDirection = new Vector2(xDirection, yDirection);
             movement.Move(moveDirection);
         }
+
+        // Special interaction logic
+        if (activable != null && Input.GetButton("Special"))
+        {
+            activable.Interact();
+        }
     }
 
 
     GameObject GetIntersectedObject(Vector2 from, Vector2 direction, float distance)
     {
         direction = direction.normalized;
-        var hitData = Physics2D.CircleCast(from, 0.05f, direction, distance);
+        //var hitData = Physics2D.CircleCast(from, 0.05f, direction, distance);
+        var hitData = Physics2D.Raycast(from, direction, distance);
 
         if (hitData.collider != null)
         {
@@ -86,6 +98,15 @@ public class PlayerController : MonoBehaviour
             Debug.DrawLine(from, from + direction.normalized * distance, Color.green);
             return null;
         }
+    }
+
+
+    void ActivateAndPlaceObject(GameObject gameobject, Vector2 targetPosition)
+    {
+        if (gameobject == null) return;
+
+        gameobject.SetActive(true);
+        gameobject.transform.position = targetPosition;
     }
 
 
@@ -107,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     void SurrenderControl()
     {
-        var currentObjectCollider = gameObject.GetComponent<Collider2D>();
+        var currentObjectCollider = GetComponent<Collider2D>();
         var currentPosition = transform.position;
         var newPlayerPosition = new Vector2(
             currentPosition.x,
@@ -126,18 +147,23 @@ public class PlayerController : MonoBehaviour
 
     private void HighlightControllable(GameObject ctrl)
     {
-        ctrl.GetComponent<SpriteRenderer>().material = HighlightMaterial;
+        originalMaterial = ctrl.GetComponent<SpriteRenderer>().material;
+        ctrl.GetComponent<SpriteRenderer>().material = PlayerData.Instance().GetHighlightMaterial(); ;
 
         //Debug.DrawLine(gameObject.transform.position, ctrl.transform.position, Color.green);
         Debug.Log($"Highlighting object {ctrl.gameObject.name}");
+
+        highlighted = ctrl;
     }
 
 
     private void DeHighlightControllable(GameObject ctrl)
     {
         if (ctrl == null) return;
-        ctrl.GetComponent<SpriteRenderer>().material = DefaultObjectMaterial;
+        ctrl.GetComponent<SpriteRenderer>().material = originalMaterial;
         Debug.Log($"De-Highlighting object {ctrl.gameObject.name}");
+
+        highlighted = null;
     }
 
 

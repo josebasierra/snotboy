@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlReach: 4
   originalBody: {fileID: 0}
-  highlightMaterial: {fileID: 2100000, guid: 2bbb64d5b0fad2446ade86b2fac399ab, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 3ce7e1321d993004b80ff28927d70e5d, type: 2}

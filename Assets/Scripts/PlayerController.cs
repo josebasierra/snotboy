@@ -136,8 +136,11 @@ public class PlayerController : MonoBehaviour
         interactable = objectUnderControl.GetComponent<IInteractable>();
 
         //update light position
-        playerLight.transform.position = objectUnderControl.transform.position;
-        playerLight.parent = objectUnderControl.transform;
+        if (playerLight != null)
+        {
+            playerLight.transform.position = objectUnderControl.transform.position;
+            playerLight.parent = objectUnderControl.transform;
+        }
 
         //update camera position
         cameraController.SetTarget(objectUnderControl.transform);

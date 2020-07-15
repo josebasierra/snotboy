@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Controllable : MonoBehaviour
 {
-    bool isBeingControlled = false;
-    bool isAvailable = true;
+    private bool isBeingControlled = false;
+    private bool isAvailable = true;
 
     public void SetIsBeingControlled(bool value)
     {
@@ -28,6 +28,11 @@ public class Controllable : MonoBehaviour
         isAvailable = true;
     }
 
+    public bool IsBeignControlled()
+    {
+        return isBeingControlled;
+    }
+    
     //TODO:
     // if (undercontrol)/(has playerController component):
     // visual effect

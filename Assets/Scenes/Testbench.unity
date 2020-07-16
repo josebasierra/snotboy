@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 88531661}
   - component: {fileID: 88531663}
   - component: {fileID: 88531662}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: helicopter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6f91da38883bf4fb2bcbdf1269fb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unavailableTime: 1
 --- !u!114 &88531663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,8 +279,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHeight: 3
-  Speed: 5
-  CanMoveItself: 0
+  Force: 1
+  MaxSpeed: 5
+  CanMoveItself: 1
 --- !u!1001 &324908287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -622,7 +624,7 @@ GameObject:
   - component: {fileID: 909946636}
   - component: {fileID: 909946635}
   - component: {fileID: 909946637}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: remote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +710,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909946631}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.39, y: -0.67, z: -0.64941406}
+  m_LocalPosition: {x: 0.398, y: -0.568, z: -0.64941406}
   m_LocalScale: {x: 0.49068516, y: 0.537828, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -739,6 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6f91da38883bf4fb2bcbdf1269fb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unavailableTime: 1
 --- !u!61 &909946637
 BoxCollider2D:
   m_ObjectHideFlags: 0

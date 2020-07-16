@@ -6,9 +6,11 @@ namespace Movement
     public class FlyingMovement : MonoBehaviour, IMovement
     {
         [SerializeField] float MaxHeight = 3;
-        [SerializeField] float Speed = 5;
-        [SerializeField] private bool CanMoveItself = false;
-
+        [SerializeField] float Force = 1;
+        [SerializeField] float MaxSpeed = 4;
+        [SerializeField] bool CanMoveItself = false;
+    
+        
         private Rigidbody2D myRigidbody;
         private float initialHeight; 
         
@@ -37,7 +39,8 @@ namespace Movement
         {
             if (ControlledDirectly() && !CanMoveItself) return;
 
-            myRigidbody.velocity = direction.normalized * Speed;
+            myRigidbody.AddForce(direction.normalized * Force);
+            myRigidbody.velocity = Vector2.ClampMagnitude(myRigidbody.velocity, MaxSpeed);
 
             var maxHeight = initialHeight + MaxHeight;
             if (gameObject.transform.position.y > maxHeight)

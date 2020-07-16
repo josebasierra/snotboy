@@ -12,7 +12,8 @@ public class SnotController : MonoBehaviour
 
     SnotJump snotJump;
 
-    bool permeableMode = true;
+    bool permeableMode = false;
+    bool isControllingObject = false; 
     bool insideControllableCollider = false;
 
     Highlighter highlighter;
@@ -36,19 +37,18 @@ public class SnotController : MonoBehaviour
 
     void Update()
     {
-        Vector2 startPosition = controlledObject.transform.position;
+        isControllingObject = (controlledObject != this.gameObject);
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 lookDirection = (mousePosition - startPosition).normalized;
+        Vector2 lookDirection = (mousePosition - (Vector2)transform.position).normalized;
 
         if (Input.GetButtonDown("Fire2"))
         {
-            bool outsideObject = (controlledObject == this.gameObject);
-            if (!outsideObject) LeaveObject();
-
-            snotJump.Jump(lookDirection, outsideObject);
+            if (isControllingObject) LeaveObject();
+            snotJump.Jump(lookDirection, !isControllingObject);
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && controlledObject == this.gameObject)
+        if (Input.GetKeyDown(KeyCode.F) && !isControllingObject)
         {
             SetPermeableMode(!permeableMode);
         }
@@ -79,7 +79,7 @@ public class SnotController : MonoBehaviour
 
     void SetPermeableMode(bool value)
     {
-        if (controlledObject != this.gameObject || insideControllableCollider) return;
+        if (isControllingObject || insideControllableCollider) return;
 
         permeableMode = value;
         if (permeableMode)
@@ -141,16 +141,17 @@ public class SnotController : MonoBehaviour
     }
 
 
-    private void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        if (permeableMode && collision.GetComponent<Controllable>())
+        if (permeableMode && !isControllingObject && collision.GetComponent<Controllable>())
         {
             insideControllableCollider = true;
             EnterObject(collision.gameObject);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+
+    void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<Controllable>())
         {

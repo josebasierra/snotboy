@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 46f8f8bcc81635948848c34e52ddc3ba
+guid: 4c1e7421a470f304e9728bf14914433e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5115618752126089108
-    second: player_idle_0
+      213: 4889755948345439461
+    second: snot_moving_0
   - first:
-      213: -5050664382621690000
-    second: player_idle_1
+      213: 252608948394207938
+    second: snot_moving_1
   - first:
-      213: -5937766766644145194
-    second: player_idle_2
+      213: -7209219413657729482
+    second: snot_moving_2
+  - first:
+      213: 4966408712116564278
+    second: snot_moving_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -108,7 +111,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_idle_0
+      name: snot_moving_0
       rect:
         serializedVersion: 2
         x: 0
@@ -122,14 +125,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c68823149dba109b0800000000000000
-      internalID: -5115618752126089108
+      spriteID: 5e4bb73c027ebd340800000000000000
+      internalID: 4889755948345439461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_idle_1
+      name: snot_moving_1
       rect:
         serializedVersion: 2
         x: 32
@@ -143,14 +146,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 077dd1ae08f68e9b0800000000000000
-      internalID: -5050664382621690000
+      spriteID: 2ca2f1c0082718300800000000000000
+      internalID: 252608948394207938
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_idle_2
+      name: snot_moving_2
       rect:
         serializedVersion: 2
         x: 64
@@ -164,8 +167,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d35e0bd590d89da0800000000000000
-      internalID: -5937766766644145194
+      spriteID: 636c41da325b3fb90800000000000000
+      internalID: -7209219413657729482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snot_moving_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 631fc17196a3ce440800000000000000
+      internalID: 4966408712116564278
       vertices: []
       indices: 
       edges: []

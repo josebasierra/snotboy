@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 49cd4addaeb6ba44089a55f8262e57ae
+guid: d908a64bf7de0f8488ac57f5d23dea5a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2818428513412729264
-    second: player_move_0
+      213: 4189146805834673899
+    second: snot_idle_0
   - first:
-      213: 5260684762499650057
-    second: player_move_1
+      213: 5448377211498497795
+    second: snot_idle_1
   - first:
-      213: -3308717793270664449
-    second: player_move_2
+      213: 2926963423694997520
+    second: snot_idle_2
+  - first:
+      213: 8432330946002421874
+    second: snot_idle_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -108,7 +111,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_move_0
+      name: snot_idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -122,14 +125,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 056b331233ee2e8d0800000000000000
-      internalID: -2818428513412729264
+      spriteID: beeecb923d6d22a30800000000000000
+      internalID: 4189146805834673899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_move_1
+      name: snot_idle_1
       rect:
         serializedVersion: 2
         x: 32
@@ -143,14 +146,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9021a105be4b10940800000000000000
-      internalID: 5260684762499650057
+      spriteID: 30783b505368c9b40800000000000000
+      internalID: 5448377211498497795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_move_2
+      name: snot_idle_2
       rect:
         serializedVersion: 2
         x: 64
@@ -164,8 +167,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff2761682b21512d0800000000000000
-      internalID: -3308717793270664449
+      spriteID: 018c6e3e9b9ae9820800000000000000
+      internalID: 2926963423694997520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snot_idle_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2780209a158a50570800000000000000
+      internalID: 8432330946002421874
       vertices: []
       indices: 
       edges: []

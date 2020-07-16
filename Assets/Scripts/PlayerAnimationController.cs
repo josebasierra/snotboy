@@ -6,12 +6,14 @@ public class PlayerAnimationController : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D myRigidbody;
+    Collider2D myCollider;
 
 
     void Start()
     {
         animator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<Collider2D>();
     }
 
     // TODO: Fix animation error when leaving object
@@ -32,7 +34,20 @@ public class PlayerAnimationController : MonoBehaviour
         {
             animator.SetTrigger("stop");
         }
+
+        animator.SetBool("isOnGround", IsOnGround(myCollider));
+        animator.SetFloat("verticalSpeed", myRigidbody.velocity.y);
         
 
+    }
+
+    bool IsOnGround(Collider2D collider)
+    {
+        Vector2 currentPosition = transform.position;
+        float yOffset = collider.bounds.extents.y;
+
+        var hitInfo = Physics2D.Raycast(currentPosition, Vector2.down, yOffset + 0.2f);
+
+        return hitInfo.collider != null;
     }
 }

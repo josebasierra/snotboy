@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1133514433}
   - component: {fileID: 1133514432}
   - component: {fileID: 1133514431}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6f91da38883bf4fb2bcbdf1269fb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unavailableTime: 1
+  highlightMaterial: {fileID: 2100000, guid: 309b3d70ca70837448dfea74c17f8da7, type: 2}
 --- !u!114 &1133514432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +187,7 @@ GameObject:
   - component: {fileID: 2616557274598205032}
   - component: {fileID: 2616557274598205047}
   - component: {fileID: 2616557274598205033}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: WindEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +265,7 @@ GameObject:
   - component: {fileID: 6370778325161430782}
   - component: {fileID: 8491012783638163273}
   - component: {fileID: 6281715986554878590}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WindParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5015,7 +5017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8876060075293560622}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,8 +8,15 @@ public class SnotController : MonoBehaviour
     IMovement controlledMovement;
     IInteractable controlledInteractable;
 
-    //TODO: Implement permeable mode (different effect), only enter objects if in permeable mode
     bool permeableMode = true;
+    bool insideControllableCollider = false;
+
+    //TODO: move jump to another script?
+    public Vector2 jumpForce = Vector2.one;
+    public float jumpCooldown = 1f;
+    bool isJumpOnCooldown = false;
+
+    Highlighter highlighter;
 
 
     void Start()
@@ -17,6 +24,9 @@ public class SnotController : MonoBehaviour
         controlledObject = this.gameObject;
         controlledMovement = controlledObject.GetComponent<IMovement>();
         controlledInteractable = controlledObject.GetComponent<IInteractable>();
+
+        highlighter = GetComponent<Highlighter>();
+        SetPermeableMode(permeableMode);
 
         var cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(controlledObject.transform);
@@ -30,17 +40,24 @@ public class SnotController : MonoBehaviour
         Vector2 lookDirection = (mousePosition - startPosition).normalized;
 
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && !isJumpOnCooldown)
         {
             if (controlledObject != this.gameObject) LeaveObject();
-            GetComponent<Rigidbody2D>().AddForce(lookDirection, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(lookDirection * jumpForce, ForceMode2D.Impulse);
+            isJumpOnCooldown = true;
+            Invoke("EnableJump", jumpCooldown);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) && controlledObject == this.gameObject)
+        {
+            SetPermeableMode(!permeableMode);
         }
     }
 
 
     void FixedUpdate()
     {
-        //snot position inside object
+        //Update snot position when inside object (when outside, the 2 positions are the same, nothing happens)
         this.transform.position = controlledObject.transform.position;
 
         // Movement logic
@@ -59,11 +76,37 @@ public class SnotController : MonoBehaviour
         }
     }
 
+    void SetPermeableMode(bool value)
+    {
+        if (controlledObject != this.gameObject || insideControllableCollider) return;
+
+        permeableMode = value;
+        if (permeableMode)
+        {
+
+            // set collision layer = IgnoreControllables (layer 9)
+            gameObject.layer = 9;
+
+            highlighter?.HighlightOn();
+        }
+        else
+        {
+            // set collision layer = Default (layer 0)
+            gameObject.layer = 0;
+
+            highlighter?.HighlightOff();
+        }
+    }
+
 
     bool EnterObject(GameObject objectToControl)
     {
         var controllable = objectToControl.GetComponent<Controllable>();
         if (controllable == null || !controllable.IsAvailable()) return false;
+
+        // Update snot body 
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Rigidbody2D>().gravityScale = 0;
 
         // Set objectToControl as new object to control
         controlledObject = objectToControl;
@@ -72,24 +115,18 @@ public class SnotController : MonoBehaviour
 
         controllable.SetIsBeingControlled(true);
 
-        // Update snot body 
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Collider2D>().enabled = false;
-
         return true;
     }
 
 
     bool LeaveObject()
-    {   
-        // Check if there space to leave object 
-        Vector2 castStart = controlledObject.transform.position;
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 castDirection = (mousePosition - castStart).normalized;
-        Vector2 objectUnderControlExtents = controlledObject.GetComponent<Collider2D>().bounds.extents;
+    {
+        //TODO: Cache snot body components in case of performance issues
 
-        var hitData = Physics2D.CircleCast(castStart, 0.1f, castDirection, objectUnderControlExtents.magnitude);
-        if (hitData.collider != null && hitData.collider.gameObject.GetComponent<Controllable>() == null) return false;
+        //Update snot body
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Rigidbody2D>().gravityScale = 1;
+        GetComponent<Rigidbody2D>().velocity = controlledObject.GetComponent<Rigidbody2D>().velocity;
 
         // Leave object
         controlledObject.GetComponent<Controllable>().SetIsBeingControlled(false);
@@ -99,21 +136,30 @@ public class SnotController : MonoBehaviour
         controlledMovement = this.GetComponent<IMovement>();
         controlledInteractable = this.GetComponent<IInteractable>();
 
-        // Update snot body
-        Vector2 objectUnderControlPosition = controlledObject.transform.position;
-        var placePosition = objectUnderControlPosition + castDirection * objectUnderControlExtents.magnitude;
-
-        transform.position = placePosition;
-        GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<Collider2D>().enabled = true;
-
         return true;
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (permeableMode)
+        if (permeableMode && collision.GetComponent<Controllable>())
+        {
+            insideControllableCollider = true;
             EnterObject(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Controllable>())
+        {
+            insideControllableCollider = false;
+        }
+    }
+
+
+    private void EnableJump()
+    {
+        isJumpOnCooldown = false;
     }
 }

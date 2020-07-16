@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float controlReach = 4f;
     [SerializeField] GameObject originalBody;
     [SerializeField] Material highlightMaterial;
-    [SerializeField] Transform playerLight;
 
     GameObject objectUnderControl;
     IMovement movement;
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && !objectUnderControl.CompareTag("Player"))
         {
             Vector2 objectUnderControlExtents = objectUnderControl.GetComponent<Collider2D>().bounds.extents;
-            var hitData = Physics2D.CircleCast(castStart, 0.1f, castDirection, objectUnderControlExtents.magnitude);
+            var hitData = Physics2D.CircleCast(castStart, 0.2f, castDirection, objectUnderControlExtents.magnitude);
 
             if (hitData.collider == null)
             {
@@ -135,12 +134,6 @@ public class PlayerController : MonoBehaviour
         movement = objectUnderControl.GetComponent<IMovement>();
         interactable = objectUnderControl.GetComponent<IInteractable>();
 
-        //update light position
-        if (playerLight != null)
-        {
-            playerLight.transform.position = objectUnderControl.transform.position;
-            playerLight.parent = objectUnderControl.transform;
-        }
 
         //update camera position
         cameraController.SetTarget(objectUnderControl.transform);

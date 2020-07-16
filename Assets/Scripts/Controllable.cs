@@ -5,8 +5,20 @@ using UnityEngine;
 
 public class Controllable : MonoBehaviour
 {
-    bool isBeingControlled = false;
+    [SerializeField] float unavailableTime = 1f;
+
+    Highlighter highlighter;
+
+    //object become available to control again after X seconds of being released
     bool isAvailable = true;
+    bool isBeingControlled = false;
+
+
+    private void Start()
+    {
+        highlighter = gameObject.AddComponent<Highlighter>();
+    }
+
 
     public void SetIsBeingControlled(bool value)
     {
@@ -14,22 +26,31 @@ public class Controllable : MonoBehaviour
         if (!value)
         {
             isAvailable = false;
-            Invoke("MakeAvailable", 0.5f);
+            Invoke("MakeAvailable", 1f);
         }
     }
+
 
     public bool IsAvailable()
     {
         return isAvailable;
     }
 
-    void MakeAvailable()
+
+    private void MakeAvailable()
     {
         isAvailable = true;
     }
 
-    //TODO:
-    // if (undercontrol)/(has playerController component):
-    // visual effect
 
+    private void OnMouseEnter()
+    {
+        highlighter?.HighlightOn();
+    }
+
+
+    private void OnMouseExit()
+    {
+        highlighter?.HighlightOff();
+    }
 }

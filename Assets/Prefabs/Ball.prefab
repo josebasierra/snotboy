@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7253754732493552207}
   - component: {fileID: 2126458172}
   - component: {fileID: 2126458171}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6f91da38883bf4fb2bcbdf1269fb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unavailableTime: 1
+  highlightMaterial: {fileID: 2100000, guid: 309b3d70ca70837448dfea74c17f8da7, type: 2}
 --- !u!114 &2126458171
 MonoBehaviour:
   m_ObjectHideFlags: 0

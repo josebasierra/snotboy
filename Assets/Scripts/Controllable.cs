@@ -7,11 +7,9 @@ public class Controllable : MonoBehaviour
 {
     [SerializeField] float unavailableTime = 1f;
 
-    Highlighter highlighter;
-
-    //object become available to control again after X seconds of being released
-    bool isAvailable = true;
-    bool isBeingControlled = false;
+    private Highlighter highlighter;
+    private bool isAvailable = true;  //object become available to control again after X seconds of being released
+    private bool isBeingControlled = false;
 
 
     private void Start()
@@ -42,6 +40,12 @@ public class Controllable : MonoBehaviour
         isAvailable = true;
     }
 
+
+    public bool IsBeignControlled()
+    {
+        return isBeingControlled;
+    }
+    
 
     private void OnMouseEnter()
     {

@@ -13,7 +13,7 @@ public class Highlighter : MonoBehaviour
     bool isHighlighted = false;
 
 
-    void Start()
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = spriteRenderer.material;

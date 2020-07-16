@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
+
 
 public class SnotController : MonoBehaviour
 {
@@ -8,13 +10,10 @@ public class SnotController : MonoBehaviour
     IMovement controlledMovement;
     IInteractable controlledInteractable;
 
+    SnotJump snotJump;
+
     bool permeableMode = true;
     bool insideControllableCollider = false;
-
-    //TODO: move jump to another script?
-    public Vector2 jumpForce = Vector2.one;
-    public float jumpCooldown = 1f;
-    bool isJumpOnCooldown = false;
 
     Highlighter highlighter;
 
@@ -24,6 +23,8 @@ public class SnotController : MonoBehaviour
         controlledObject = this.gameObject;
         controlledMovement = controlledObject.GetComponent<IMovement>();
         controlledInteractable = controlledObject.GetComponent<IInteractable>();
+
+        snotJump = GetComponent<SnotJump>();
 
         highlighter = GetComponent<Highlighter>();
         SetPermeableMode(permeableMode);
@@ -39,13 +40,12 @@ public class SnotController : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDirection = (mousePosition - startPosition).normalized;
 
-
-        if (Input.GetButtonDown("Fire2") && !isJumpOnCooldown)
+        if (Input.GetButtonDown("Fire2"))
         {
-            if (controlledObject != this.gameObject) LeaveObject();
-            GetComponent<Rigidbody2D>().AddForce(lookDirection * jumpForce, ForceMode2D.Impulse);
-            isJumpOnCooldown = true;
-            Invoke("EnableJump", jumpCooldown);
+            bool outsideObject = (controlledObject == this.gameObject);
+            if (!outsideObject) LeaveObject();
+
+            snotJump.Jump(lookDirection, outsideObject);
         }
 
         if (Input.GetKeyDown(KeyCode.F) && controlledObject == this.gameObject)
@@ -75,6 +75,7 @@ public class SnotController : MonoBehaviour
             controlledInteractable.Interact();
         }
     }
+
 
     void SetPermeableMode(bool value)
     {
@@ -155,11 +156,5 @@ public class SnotController : MonoBehaviour
         {
             insideControllableCollider = false;
         }
-    }
-
-
-    private void EnableJump()
-    {
-        isJumpOnCooldown = false;
     }
 }

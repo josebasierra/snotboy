@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LateralMovement : MonoBehaviour, IMovement
+
+namespace Movement
 {
-    [SerializeField] float moveForce = 4f;
-    Rigidbody2D myRigidbody;
-
-
-    void Start()
+    public class LateralMovement : MonoBehaviour, IMovement
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
-    }
+        [SerializeField] float moveForce = 4f;
+        Rigidbody2D myRigidbody;
 
 
-    public void Move(Vector2 direction)
-    {
-        direction.y = 0;
-        myRigidbody.AddForce(direction * moveForce);
+        void Start()
+        {
+            myRigidbody = GetComponent<Rigidbody2D>();
+        }
+
+
+        public void Move(Vector2 direction)
+        {
+            direction.y = 0;
+            myRigidbody.AddForce(direction * moveForce);
+        }
     }
 }

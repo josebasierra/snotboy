@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -35,19 +36,8 @@ public class PlayerAnimationController : MonoBehaviour
             animator.SetTrigger("stop");
         }
 
-        animator.SetBool("isOnGround", IsOnGround(myCollider));
+        animator.SetBool("isOnGround", Physics2DUtility.IsOnGround(transform.position, myCollider));
         animator.SetFloat("verticalSpeed", myRigidbody.velocity.y);
-        
-
-    }
-
-    bool IsOnGround(Collider2D collider)
-    {
-        Vector2 currentPosition = transform.position;
-        float yOffset = collider.bounds.extents.y;
-
-        var hitInfo = Physics2D.Raycast(currentPosition, Vector2.down, yOffset + 0.2f);
-
-        return hitInfo.collider != null;
+       
     }
 }

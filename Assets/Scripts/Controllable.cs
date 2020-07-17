@@ -15,6 +15,7 @@ public class Controllable : MonoBehaviour
     private void Start()
     {
         highlighter = gameObject.AddComponent<Highlighter>();
+        this.gameObject.layer = 10; //set object layer to controllable
     }
 
 

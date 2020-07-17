@@ -44,8 +44,12 @@ public class SnotController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2"))
         {
-            if (isControllingObject) LeaveObject();
-            snotJump.Jump(lookDirection, !isControllingObject);
+            if (isControllingObject && !snotJump.IsOnCooldown())
+            {
+                LeaveControllableObject();
+            }
+            bool needsGroundToJump = !isControllingObject;
+            snotJump.Jump(lookDirection, needsGroundToJump);
         }
 
         if (Input.GetKeyDown(KeyCode.F) && !isControllingObject)
@@ -57,6 +61,12 @@ public class SnotController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isControllingObject && controlledObject == null)
+        {
+            ActivateSnot(true);
+            TakeOver(this.gameObject);
+        }
+
         //Update snot position when inside object (when outside, the 2 positions are the same, nothing happens)
         this.transform.position = controlledObject.transform.position;
 
@@ -84,7 +94,6 @@ public class SnotController : MonoBehaviour
         permeableMode = value;
         if (permeableMode)
         {
-
             // set collision layer = IgnoreControllables (layer 9)
             gameObject.layer = 9;
 
@@ -100,53 +109,51 @@ public class SnotController : MonoBehaviour
     }
 
 
-    bool EnterObject(GameObject objectToControl)
+    void ActivateSnot(bool state)
     {
-        var controllable = objectToControl.GetComponent<Controllable>();
-        if (controllable == null || !controllable.IsAvailable()) return false;
-
-        // Update snot body 
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Rigidbody2D>().gravityScale = 0;
-
-        // Set objectToControl as new object to control
-        controlledObject = objectToControl;
-        controlledMovement = controlledObject.GetComponent<IMovement>();
-        controlledInteractable = controlledObject.GetComponent<IInteractable>();
-
-        controllable.SetIsBeingControlled(true);
-
-        return true;
+        GetComponent<SpriteRenderer>().enabled = state;
+        GetComponent<Rigidbody2D>().gravityScale = state? 1 : 0;
     }
 
 
-    bool LeaveObject()
+    void TakeOver(GameObject objectToControl)
     {
-        //TODO: Cache snot body components in case of performance issues
+        controlledObject = objectToControl.gameObject;
+        controlledMovement = objectToControl.GetComponent<IMovement>();
+        controlledInteractable = objectToControl.GetComponent<IInteractable>();
+    }
 
-        //Update snot body
-        GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<Rigidbody2D>().gravityScale = 1;
+
+    void EnterControllableObject(Controllable controllable)
+    {
+        ActivateSnot(false);
+        controllable.SetIsBeingControlled(true);
+
+        TakeOver(controllable.gameObject);
+    }
+
+
+    void LeaveControllableObject()
+    {
+        ActivateSnot(true);
         GetComponent<Rigidbody2D>().velocity = controlledObject.GetComponent<Rigidbody2D>().velocity;
 
-        // Leave object
         controlledObject.GetComponent<Controllable>().SetIsBeingControlled(false);
 
-        // Set snot as current object to control
-        controlledObject = this.gameObject;
-        controlledMovement = this.GetComponent<IMovement>();
-        controlledInteractable = this.GetComponent<IInteractable>();
-
-        return true;
+        TakeOver(this.gameObject);
     }
 
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (permeableMode && !isControllingObject && collision.GetComponent<Controllable>())
+        var controllable = collision.GetComponent<Controllable>();
+        if (permeableMode && !isControllingObject && controllable != null && controllable.IsAvailable())
+        {
+            EnterControllableObject(controllable);
+        }
+        if (controllable != null)
         {
             insideControllableCollider = true;
-            EnterObject(collision.gameObject);
         }
     }
 

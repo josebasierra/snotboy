@@ -32,6 +32,12 @@ public class SnotJump : MonoBehaviour
         return true;
     }
 
+    
+    public bool IsOnCooldown()
+    {
+        return isJumpOnCooldown;
+    }
+
 
     public void DrawTrajectory(Vector2 jumpDirection)
     {

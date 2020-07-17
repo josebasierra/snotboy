@@ -126,7 +126,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 40
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85b30e8a18fb11f41ac26e1e5678c2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: {x: 5, y: 5}
+  jumpForce: {x: 20, y: 20}
   jumpCooldown: 0.5
 --- !u!114 &2000724616309346386
 MonoBehaviour:
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootForce: 10
   shootCooldown: 1
+  needsAmmunition: 0
   ammunition: -1
   objectToShoot: {fileID: 3884233218463187358, guid: f9f18b4e9dbb51647bbc09531bd4bbee,
     type: 3}

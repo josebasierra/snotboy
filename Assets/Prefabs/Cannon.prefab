@@ -198,7 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23473a1c0558594db1ce45b7bf9dd58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForce: 10
+  shootForce: 60
+  shootDelay: 1
   shootCooldown: 1
   needsAmmunition: 0
   ammunition: -1

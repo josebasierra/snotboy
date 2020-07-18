@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevelSelection()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
 

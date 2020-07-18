@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     private static MenuController instance;
-
     private GameObject Menu;
+    
     // Start is called before the first frame update
     void Start()
     {
-        Menu = transform.Find("Content").gameObject;
+        Menu = findMenuGameObject();
         
         HideMenu();
         Menu.transform.Find("ContinueButton").GetComponent<Button>()?.onClick.AddListener(Continue);
@@ -20,6 +20,13 @@ public class MenuController : MonoBehaviour
         instance = this;
     }
 
+    private GameObject findMenuGameObject()
+    {
+        var canvasTransform = transform.Find("Canvas");
+        var menu = canvasTransform.Find("Menu");
+        return menu == null ? null : menu.gameObject;
+    }
+    
     public MenuController GetInstance()
     {
         return instance;
@@ -45,11 +52,16 @@ public class MenuController : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            if (Menu.activeSelf)
+            if (MenuActive())
                 HideMenu();
             else
                 ShowMenu();
         }
+    }
+
+    public bool MenuActive()
+    {
+        return Menu.activeSelf;
     }
 
     public void ShowMenu()

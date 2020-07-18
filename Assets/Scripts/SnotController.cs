@@ -113,6 +113,10 @@ public class SnotController : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().enabled = state;
         GetComponent<Rigidbody2D>().gravityScale = state? 1 : 0;
+
+        // ground detection not working because raycast colliding with snot colliders, look for alternative
+        GetComponent<Collider2D>().enabled = state;
+        transform.GetChild(0).GetComponent<Collider2D>().enabled = state;
     }
 
 

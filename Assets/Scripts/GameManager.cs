@@ -10,16 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Material defaultHighlightMaterial;
 
     static GameManager _instance;
-
-
     public static GameManager Instance()
     {
         return _instance;
-    }
-
-    public Material GetHighlightMaterial()
-    {
-        return defaultHighlightMaterial;
     }
 
 
@@ -35,10 +28,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public Material GetHighlightMaterial()
+    {
+        return defaultHighlightMaterial;
+    }
+
+
+    public void LoadLevel(int level)
+    {
+        SceneManager.LoadScene(level);
+    }
+
+
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
+    public void LoadLevelSelection()
+    {
+        SceneManager.LoadScene(1);
+    }
+
 
     public void QuitGame()
     {

@@ -16,6 +16,11 @@ namespace Interactables
         [SerializeField] GameObject objectToShoot;
         [SerializeField] Transform releasePoint;
 
+
+        [Header("Sounds")]
+        [SerializeField] AudioClip clickSound;
+        [SerializeField] AudioClip shootSound;
+
         bool isShotOnCooldown = false;
 
 
@@ -37,6 +42,7 @@ namespace Interactables
         void Shoot()
         {
             // ... play strong sound
+            GetComponent<AudioSource>().PlayOneShot(shootSound);
 
             var firedObject = Instantiate(objectToShoot);
             firedObject.name = objectToShoot.name;

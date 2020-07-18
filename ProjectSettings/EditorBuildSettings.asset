@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/TilemapTest.unity
+    guid: a87d4f8346aee584c8003a36e3ca706b
+  - enabled: 1
+    path: Assets/Scenes/LevelSelection.unity
+    guid: 418a51f35cadfe9459b261d40c8074b2
   m_configObjects: {}

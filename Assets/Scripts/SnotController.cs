@@ -37,11 +37,9 @@ public class SnotController : MonoBehaviour
 
     void Update()
     {
-        isControllingObject = (controlledObject != this.gameObject);
-
+        // snot jump
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDirection = (mousePosition - (Vector2)transform.position).normalized;
-
         if (Input.GetButtonDown("Fire2"))
         {
             if (isControllingObject && !snotJump.IsOnCooldown())
@@ -52,6 +50,7 @@ public class SnotController : MonoBehaviour
             snotJump.Jump(lookDirection, needsGroundToJump);
         }
 
+        // permeable mode
         if (Input.GetKeyDown(KeyCode.F) && !isControllingObject)
         {
             SetPermeableMode(!permeableMode);
@@ -60,15 +59,16 @@ public class SnotController : MonoBehaviour
 
 
     void FixedUpdate()
-    {
+    {       
+        this.transform.position = controlledObject.transform.position;
+        isControllingObject = (controlledObject != this.gameObject);
+
+        //activate snot if controlledObject is destroyed while controlling it
         if (isControllingObject && controlledObject == null)
         {
             ActivateSnot(true);
             TakeOver(this.gameObject);
         }
-
-        //Update snot position when inside object (when outside, the 2 positions are the same, nothing happens)
-        this.transform.position = controlledObject.transform.position;
 
         // Movement logic
         if (controlledMovement != null)
@@ -114,9 +114,9 @@ public class SnotController : MonoBehaviour
         GetComponent<SpriteRenderer>().enabled = state;
         GetComponent<Rigidbody2D>().gravityScale = state? 1 : 0;
 
-        // ground detection not working because raycast colliding with snot colliders, look for alternative
-        GetComponent<Collider2D>().enabled = state;
-        transform.GetChild(0).GetComponent<Collider2D>().enabled = state;
+        // enabling colliders can cause snot to leave the map
+        //GetComponent<Collider2D>().enabled = state;
+        //transform.GetChild(0).GetComponent<Collider2D>().enabled = state;
     }
 
 

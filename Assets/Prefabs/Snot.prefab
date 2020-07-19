@@ -62,10 +62,9 @@ GameObject:
   - component: {fileID: 2154941946411712258}
   - component: {fileID: 1512728721359772785}
   - component: {fileID: 4986560373045087848}
-  - component: {fileID: 1239440287}
   - component: {fileID: 1239440295}
   - component: {fileID: 5194037897610388660}
-  - component: {fileID: 2093577482}
+  - component: {fileID: -6651787607451950949}
   m_Layer: 0
   m_Name: Snot
   m_TagString: Player
@@ -174,7 +173,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bc619c247a495a54e96c8dec9745dbf4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -219,20 +218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5401de59154909443b838fafbdf5b7d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 2.5
---- !u!114 &1239440287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411761555110584662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 318087c488e4f4347aa350258380d663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveForce: 2.5
+  jumpForce: 2
+  jumpCooldown: 0.4
+  zeroGravityTime: 0.1
 --- !u!114 &1239440295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 3ce7e1321d993004b80ff28927d70e5d, type: 2}
---- !u!114 &2093577482
+--- !u!114 &-6651787607451950949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,10 +255,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 411761555110584662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58e6eeac70a0fc4d80dabe829345433, type: 3}
+  m_Script: {fileID: 11500000, guid: 85b30e8a18fb11f41ac26e1e5678c2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 2.5
-  mass: 0.5
-  maxTime: 1
-  pointsCount: 20
+  jumpForce: {x: 0.4, y: 0.3}
+  jumpCooldown: 0.35

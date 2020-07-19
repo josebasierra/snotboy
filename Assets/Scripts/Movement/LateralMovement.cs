@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Utility;
 
 namespace Movement
 {
     public class LateralMovement : MonoBehaviour, IMovement
     {
-        [SerializeField] float moveForce = 4f;
-        Rigidbody2D myRigidbody;
-
+        [SerializeField] protected float moveForce = 4f;
+        protected Rigidbody2D myRigidbody;
+        protected Collider2D myCollider;
 
         void Start()
         {
             myRigidbody = GetComponent<Rigidbody2D>();
+            myCollider = GetComponent<Collider2D>();
         }
 
 

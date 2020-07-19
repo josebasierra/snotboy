@@ -8,9 +8,13 @@ public class SnotJump : MonoBehaviour
 {
     [SerializeField] float jumpForce;
 
+
+    [SerializeField] float jumpCooldown = 0.4f;
+    [SerializeField] float zeroGravityTime = 0.1f;
+
     Rigidbody2D myRigidbody;
     Collider2D myCollider;
-    const float jumpCooldown = 0.2f;
+
     bool isJumpOnCooldown;
 
 
@@ -26,9 +30,14 @@ public class SnotJump : MonoBehaviour
         if (isJumpOnCooldown) return false;
         if (checkGround && !Physics2DUtility.IsOnGround(transform.position, myCollider)) return false;
 
+        myRigidbody.gravityScale = 0;
+        Invoke("EnableGravity", zeroGravityTime);
+
         myRigidbody.AddForce(jumpDirection.normalized * jumpForce, ForceMode2D.Impulse);
+
         isJumpOnCooldown = true;
         Invoke("EnableJump", jumpCooldown);
+
         return true;
     }
 
@@ -39,14 +48,15 @@ public class SnotJump : MonoBehaviour
     }
 
 
-    public void DrawTrajectory(Vector2 jumpDirection)
-    {
-
-    }
-
-
     void EnableJump()
     {
         isJumpOnCooldown = false;
+        myRigidbody.gravityScale = 1;
+    }
+
+
+    void EnableGravity()
+    {
+        myRigidbody.gravityScale = 1;
     }
 }

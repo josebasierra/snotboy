@@ -18,6 +18,7 @@ public class SnotController : MonoBehaviour
 
     Highlighter highlighter;
 
+    Rigidbody2D myRigidbody;
 
     void Start()
     {
@@ -32,6 +33,8 @@ public class SnotController : MonoBehaviour
 
         var cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(controlledObject.transform);
+
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
 
@@ -61,7 +64,9 @@ public class SnotController : MonoBehaviour
     void FixedUpdate()
     {       
         this.transform.position = controlledObject.transform.position;
+
         isControllingObject = (controlledObject != this.gameObject);
+        myRigidbody.gravityScale = isControllingObject? 0 : 1;
 
         //activate snot if controlledObject is destroyed while controlling it
         if (isControllingObject && controlledObject == null)
@@ -112,7 +117,6 @@ public class SnotController : MonoBehaviour
     void ActivateSnot(bool state)
     {
         GetComponent<SpriteRenderer>().enabled = state;
-        GetComponent<Rigidbody2D>().gravityScale = state? 1 : 0;
 
         // enabling colliders can cause snot to leave the map
         //GetComponent<Collider2D>().enabled = state;

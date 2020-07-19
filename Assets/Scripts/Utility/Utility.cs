@@ -13,9 +13,9 @@ namespace Utility
             float xOffset = collider.bounds.extents.x;
             float yOffset = collider.bounds.extents.y;
 
-            var hitDown = Physics2D.Raycast(position + new Vector2(0, -yOffset), Vector2.down, 0.1f);
-            var hitDownLeft = Physics2D.Raycast(position + new Vector2(-xOffset, -yOffset), Vector2.down, 0.1f);
-            var hitDownRight = Physics2D.Raycast(position + new Vector2(xOffset, -yOffset), Vector2.down, 0.1f);
+            var hitDown = Physics2D.Raycast(position + new Vector2(0, -yOffset), Vector2.down, 0.2f);
+            var hitDownLeft = Physics2D.Raycast(position + new Vector2(-xOffset, -yOffset), Vector2.down, 0.2f);
+            var hitDownRight = Physics2D.Raycast(position + new Vector2(xOffset, -yOffset), Vector2.down, 0.2f);
 
             return hitDown.collider != null || hitDownLeft.collider != null || hitDownRight.collider != null;
         }

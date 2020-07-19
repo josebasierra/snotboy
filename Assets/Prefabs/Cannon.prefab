@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2000724616309346390}
   - component: {fileID: 2000724616309346391}
-  - component: {fileID: 2000724616309346389}
   - component: {fileID: 2000724616309346387}
   - component: {fileID: 2000724616309346388}
   - component: {fileID: 2000724616309346385}
   - component: {fileID: 77698253491693224}
   - component: {fileID: 2000724616309346386}
+  - component: {fileID: 3971339873874242659}
   m_Layer: 10
   m_Name: Cannon
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 2000724616309347240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.511, y: -1.819, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2000724616504722520}
   m_Father: {fileID: 0}
@@ -76,8 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a1967e6adab245a44bf7e3d112749fc8, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -6940671641934974236, guid: 013b97b63ea34494f800a258e82e8302,
+    type: 3}
   m_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,32 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2000724616309346389
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000724616309347240}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &2000724616309346387
 Rigidbody2D:
   serializedVersion: 4
@@ -150,7 +125,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.51499987, y: -0.061538402}
+  m_ConnectedAnchor: {x: -0.283, y: 0}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 0
@@ -184,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85b30e8a18fb11f41ac26e1e5678c2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: {x: 20, y: 20}
+  jumpForce: {x: 25, y: 25}
   jumpCooldown: 0.5
 --- !u!114 &2000724616309346386
 MonoBehaviour:
@@ -206,6 +181,34 @@ MonoBehaviour:
   objectToShoot: {fileID: 3884233218463187358, guid: f9f18b4e9dbb51647bbc09531bd4bbee,
     type: 3}
   releasePoint: {fileID: 2000724617292140251}
+  clickSound: {fileID: 0}
+  shootSound: {fileID: 0}
+--- !u!61 &3971339873874242659
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000724616309347240}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0012304783, y: -0.0012304187}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8125, y: 0.78125}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7805095, y: 0.74433815}
+  m_EdgeRadius: 0
 --- !u!1 &2000724616504722524
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +223,7 @@ GameObject:
   - component: {fileID: 2000724616504722523}
   - component: {fileID: 2000724616504722503}
   - component: {fileID: 2000724616504722522}
+  - component: {fileID: 1672951382442747417}
   m_Layer: 10
   m_Name: Cannon weapon
   m_TagString: Untagged
@@ -235,8 +239,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000724616504722524}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0299997, y: 0.029999971, z: 0}
-  m_LocalScale: {x: 2, y: 0.4875, z: 1}
+  m_LocalPosition: {x: 0.283, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2000724617292140251}
   m_Father: {fileID: 2000724616309346390}
@@ -281,7 +285,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a1967e6adab245a44bf7e3d112749fc8, type: 3}
+  m_Sprite: {fileID: 1285290240321762569, guid: a3bbeb8ac28ca4a428745447fb02e0cb,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -305,18 +310,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.11542082, y: 0.004924357}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.96875, y: 0.4375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.74760056, y: 0.26645887}
   m_EdgeRadius: 0
 --- !u!50 &2000724616504722523
 Rigidbody2D:
@@ -364,9 +369,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a975f2edcd6d8a4abd655a7498eaca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationForce: 80
+  rotationForce: 200
   maxAngularSpeed: 10
   rotationCenter: {fileID: 2000724616309346390}
+--- !u!114 &1672951382442747417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000724616504722524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23473a1c0558594db1ce45b7bf9dd58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootForce: 60
+  shootDelay: 1
+  shootCooldown: 1
+  needsAmmunition: 0
+  ammunition: -1
+  objectToShoot: {fileID: 3884233218463187358, guid: f9f18b4e9dbb51647bbc09531bd4bbee,
+    type: 3}
+  releasePoint: {fileID: 2000724617292140251}
+  clickSound: {fileID: 0}
+  shootSound: {fileID: 0}
 --- !u!1 &2000724617292140252
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +418,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000724617292140252}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0.41, y: 0.031, z: 0}
   m_LocalScale: {x: 1, y: 4.102564, z: 1}
   m_Children: []
   m_Father: {fileID: 2000724616504722520}

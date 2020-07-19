@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2000724616309346388}
   - component: {fileID: 2000724616309346385}
   - component: {fileID: 77698253491693224}
-  - component: {fileID: 2000724616309346386}
   - component: {fileID: 3971339873874242659}
   m_Layer: 10
   m_Name: Cannon
@@ -161,28 +160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: {x: 25, y: 25}
   jumpCooldown: 0.5
---- !u!114 &2000724616309346386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000724616309347240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d23473a1c0558594db1ce45b7bf9dd58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootForce: 60
-  shootDelay: 1
-  shootCooldown: 1
-  needsAmmunition: 0
-  ammunition: -1
-  objectToShoot: {fileID: 3884233218463187358, guid: f9f18b4e9dbb51647bbc09531bd4bbee,
-    type: 3}
-  releasePoint: {fileID: 2000724617292140251}
-  clickSound: {fileID: 0}
-  shootSound: {fileID: 0}
 --- !u!61 &3971339873874242659
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -369,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a975f2edcd6d8a4abd655a7498eaca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationForce: 200
+  rotationForce: 250
   maxAngularSpeed: 10
   rotationCenter: {fileID: 2000724616309346390}
 --- !u!114 &1672951382442747417
@@ -387,8 +364,8 @@ MonoBehaviour:
   shootForce: 60
   shootDelay: 1
   shootCooldown: 1
-  needsAmmunition: 0
-  ammunition: -1
+  needsAmmunition: 1
+  ammunition: 1
   objectToShoot: {fileID: 3884233218463187358, guid: f9f18b4e9dbb51647bbc09531bd4bbee,
     type: 3}
   releasePoint: {fileID: 2000724617292140251}
@@ -418,7 +395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000724617292140252}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41, y: 0.031, z: 0}
+  m_LocalPosition: {x: 0.706, y: 0.031, z: 0}
   m_LocalScale: {x: 1, y: 4.102564, z: 1}
   m_Children: []
   m_Father: {fileID: 2000724616504722520}

@@ -40,6 +40,8 @@ public class SnotController : MonoBehaviour
 
     void Update()
     {
+        CheckControlledObject();
+
         // snot jump
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 lookDirection = (mousePosition - (Vector2)transform.position).normalized;
@@ -62,17 +64,14 @@ public class SnotController : MonoBehaviour
 
 
     void FixedUpdate()
-    {       
-        this.transform.position = controlledObject.transform.position;
+    {
+        CheckControlledObject();
 
-        isControllingObject = (controlledObject != this.gameObject);
-        myRigidbody.gravityScale = isControllingObject? 0 : 1;
-
-        //activate snot if controlledObject is destroyed while controlling it
-        if (isControllingObject && controlledObject == null)
+        isControllingObject = (controlledObject != this.gameObject && controlledObject != null);
+        if (isControllingObject)
         {
-            ActivateSnot(true);
-            TakeOver(this.gameObject);
+            this.transform.position = controlledObject.transform.position;
+            myRigidbody.gravityScale = isControllingObject ? 0 : 1;
         }
 
         // Movement logic
@@ -117,10 +116,6 @@ public class SnotController : MonoBehaviour
     void ActivateSnot(bool state)
     {
         GetComponent<SpriteRenderer>().enabled = state;
-
-        // enabling colliders can cause snot to leave the map
-        //GetComponent<Collider2D>().enabled = state;
-        //transform.GetChild(0).GetComponent<Collider2D>().enabled = state;
     }
 
 
@@ -149,6 +144,17 @@ public class SnotController : MonoBehaviour
         controlledObject.GetComponent<Controllable>().SetIsBeingControlled(false);
 
         TakeOver(this.gameObject);
+    }
+
+
+    void CheckControlledObject()
+    {
+        //activate snot if controlledObject is destroyed while controlling it
+        if (controlledObject == null)
+        {
+            ActivateSnot(true);
+            TakeOver(this.gameObject);
+        }
     }
 
 

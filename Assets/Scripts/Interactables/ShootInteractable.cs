@@ -42,7 +42,7 @@ namespace Interactables
         void Shoot()
         {
             // ... play strong sound
-            GetComponent<AudioSource>().PlayOneShot(shootSound);
+            //GetComponent<AudioSource>().PlayOneShot(shootSound);
 
             var firedObject = Instantiate(objectToShoot);
             firedObject.name = objectToShoot.name;

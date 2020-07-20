@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System;
 
 //SINGLETON CLASS	
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Material defaultHighlightMaterial;
 
+    public event Action OnWin;
     static GameManager instance;
+
     public static GameManager Instance()
     {
         return instance;
@@ -38,7 +40,9 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-
+        Debug.Log("Win notified to Game Manager");
+        Debug.Log(OnWin);
+        OnWin?.Invoke();
     }
 
 

@@ -8,24 +8,25 @@ public class WinMenu : MonoBehaviour
 {
     GameObject canvasObject;
 
+
     void Start()
     {
+        canvasObject = this.transform.GetChild(0).gameObject;
         canvasObject.SetActive(false);
+        GameManager.Instance().OnWin += OnWin;
     }
 
-    private void OnEnable()
+
+    private void OnDestroy()
     {
-        //subscribe to GameManager win event ...
+        GameManager.Instance().OnWin -= OnWin;
     }
 
-    private void OnDisable()
-    {
-        
-    }
 
     void OnWin()
     {
-
+        Debug.Log("ok");
+        canvasObject.SetActive(true);
     }
 }
 

@@ -118,7 +118,7 @@ public class SnotController : MonoBehaviour
     void ActivateSnot(bool state)
     {
         GetComponent<SpriteRenderer>().enabled = state;
-        myRigidbody.gravityScale = isControllingObject ? 0 : 1;
+        myRigidbody.gravityScale = state ? 1 : 0;
     }
 
 

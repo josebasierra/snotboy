@@ -51,12 +51,12 @@ public class SnotJump : MonoBehaviour
     void EnableJump()
     {
         isJumpOnCooldown = false;
-        myRigidbody.gravityScale = 1;
     }
 
 
     void EnableGravity()
     {
-        myRigidbody.gravityScale = 1;
+        if (!GetComponent<SnotController>().IsControllingObject())
+            myRigidbody.gravityScale = 1;
     }
 }

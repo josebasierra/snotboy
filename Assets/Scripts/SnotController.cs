@@ -10,15 +10,20 @@ public class SnotController : MonoBehaviour
     IMovement controlledMovement;
     IInteractable controlledInteractable;
 
-    SnotJump snotJump;
-
     bool permeableMode = false;
     bool isControllingObject = false; 
     bool insideControllableCollider = false;
 
     Highlighter highlighter;
-
     Rigidbody2D myRigidbody;
+    SnotJump snotJump;
+
+
+    public bool IsControllingObject()
+    {
+        return isControllingObject;
+    }
+
 
     void Start()
     {
@@ -26,15 +31,14 @@ public class SnotController : MonoBehaviour
         controlledMovement = controlledObject.GetComponent<IMovement>();
         controlledInteractable = controlledObject.GetComponent<IInteractable>();
 
-        snotJump = GetComponent<SnotJump>();
-
-        highlighter = GetComponent<Highlighter>();
         SetPermeableMode(permeableMode);
 
         var cameraController = Camera.main.GetComponent<CameraController>();
         cameraController.SetTarget(controlledObject.transform);
 
         myRigidbody = GetComponent<Rigidbody2D>();
+        snotJump = GetComponent<SnotJump>();
+        highlighter = GetComponent<Highlighter>();
     }
 
 
@@ -70,7 +74,6 @@ public class SnotController : MonoBehaviour
         isControllingObject = (controlledObject != this.gameObject && controlledObject != null);
      
         this.transform.position = controlledObject.transform.position;
-        myRigidbody.gravityScale = isControllingObject ? 0 : 1;
         
 
         // Movement logic
@@ -115,6 +118,7 @@ public class SnotController : MonoBehaviour
     void ActivateSnot(bool state)
     {
         GetComponent<SpriteRenderer>().enabled = state;
+        myRigidbody.gravityScale = isControllingObject ? 0 : 1;
     }
 
 

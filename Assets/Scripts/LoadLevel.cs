@@ -11,7 +11,7 @@ public class LoadLevel : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameManager.Instance().LoadLevel(level);
+            GameManager.Instance().LoadScene(level);
         }
     }
 }

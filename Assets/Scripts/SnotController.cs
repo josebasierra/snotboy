@@ -68,11 +68,10 @@ public class SnotController : MonoBehaviour
         CheckControlledObject();
 
         isControllingObject = (controlledObject != this.gameObject && controlledObject != null);
-        if (isControllingObject)
-        {
-            this.transform.position = controlledObject.transform.position;
-            myRigidbody.gravityScale = isControllingObject ? 0 : 1;
-        }
+     
+        this.transform.position = controlledObject.transform.position;
+        myRigidbody.gravityScale = isControllingObject ? 0 : 1;
+        
 
         // Movement logic
         if (controlledMovement != null)

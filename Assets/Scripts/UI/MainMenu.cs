@@ -11,18 +11,6 @@ public class MainMenu : MonoBehaviour
     GameObject currentView;
 
 
-    public void Play()
-    {
-        GameManager.Instance().LoadLevelSelection();
-    }
-
-
-    public void Exit()
-    {
-        GameManager.Instance().QuitGame();
-    }
-
-
     public void ShowMainView()
     {
         ShowView(mainView);

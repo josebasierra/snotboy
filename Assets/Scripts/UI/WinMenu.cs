@@ -6,28 +6,26 @@ using UnityEngine.UI;
 
 public class WinMenu : MonoBehaviour
 {
-    [SerializeField] Button retryButton;
-    [SerializeField] Button levelSelectionButton;
-    [SerializeField] Button exitButton;
-    [SerializeField] GameObject canvasObject;
+    GameObject canvasObject;
 
     void Start()
     {
         canvasObject.SetActive(false);
-        retryButton?.onClick.AddListener(GameManager.Instance().ReloadScene);
-        levelSelectionButton?.onClick.AddListener(GameManager.Instance().LoadLevelSelection);
-        exitButton?.onClick.AddListener(GameManager.Instance().QuitGame);
     }
 
-    public void Show()
+    private void OnEnable()
     {
-        canvasObject.SetActive(true);
+        //subscribe to GameManager win event ...
     }
 
-    public void Hide()
+    private void OnDisable()
     {
-        canvasObject.SetActive(false);
+        
     }
 
+    void OnWin()
+    {
+
+    }
 }
 

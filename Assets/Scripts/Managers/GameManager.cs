@@ -8,6 +8,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Material defaultHighlightMaterial;
+    [SerializeField] Material defaultUnderControlMaterial;
 
     public event Action OnWin;
     static GameManager instance;
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
     public Material GetHighlightMaterial()
     {
         return defaultHighlightMaterial;
+    }
+
+    public Material GetUnderControlMaterial()
+    {
+        return defaultUnderControlMaterial;
     }
 
 

@@ -1275,6 +1275,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box-big Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 267487355614170610, guid: 075c9bc793f1b9e4b8dc63c2800216ef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 28c78f1784d516843bc879dc488f274f, type: 2}
     - target: {fileID: 267487355614170611, guid: 075c9bc793f1b9e4b8dc63c2800216ef,
         type: 3}
       propertyPath: m_LocalPosition.x

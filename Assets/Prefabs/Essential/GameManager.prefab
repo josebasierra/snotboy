@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultHighlightMaterial: {fileID: 2100000, guid: 3ce7e1321d993004b80ff28927d70e5d,
     type: 2}
+  defaultUnderControlMaterial: {fileID: 2100000, guid: cd1a3917c69d7464f82e3f10d384be44,
+    type: 2}

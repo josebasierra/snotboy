@@ -10,15 +10,20 @@ public class Highlighter : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Material originalMaterial;
 
+    protected virtual Material DefaultHighlightMaterial => GameManager.Instance().GetHighlightMaterial();
+
     bool isHighlighted = false;
-
-
+    
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = spriteRenderer.material;
     }
-
+    
+    public void SetHighlightMaterial(Material material)
+    {
+        highlightMaterial = material;
+    }
 
     public void HighlightOn()
     {
@@ -30,7 +35,7 @@ public class Highlighter : MonoBehaviour
         }
         else
         {
-            spriteRenderer.material = GameManager.Instance().GetHighlightMaterial();
+            spriteRenderer.material = DefaultHighlightMaterial;
         }
 
         isHighlighted = true;

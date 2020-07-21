@@ -59,7 +59,7 @@ public class ExperimentalJump : MonoBehaviour
             OnJump?.Invoke();
 
             isOnCooldown = true;
-            Invoke("EnableJump", cooldownTime);
+            Invoke(nameof(EnableJump), cooldownTime);
         }
 
         // Jump maneuvers
@@ -104,12 +104,12 @@ public class ExperimentalJump : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            Debug.Log("JumpKeyDown");
             startJump = true;
         }
-        if (Input.GetButton("Jump")) extendJump = true;
+        if (Input.GetButton("Jump"))
+        {
+            extendJump = true;
+        }
         direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
     }
-
-
 }

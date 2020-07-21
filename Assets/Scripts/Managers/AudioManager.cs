@@ -37,6 +37,23 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    public static void PlayShot(AudioSource source, AudioClip clip)
+    {
+        if (source == null)
+        {
+            Debug.Log("Missing audio source");
+            return;
+        }
+        if (clip == null)
+        {
+            Debug.Log("Missing audio clip");
+            return;
+        }
+
+        source.PlayOneShot(clip);
+    }
+
+
     public void PlayMusic(AudioClip music)
     {
         if (music == audioSource.clip) return;

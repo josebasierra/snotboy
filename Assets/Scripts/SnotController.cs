@@ -16,6 +16,12 @@ public class SnotController : MonoBehaviour
 
     Highlighter highlighter;
     Rigidbody2D myRigidbody;
+    AudioSource audioSource;
+
+    [Header("Sounds")]
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip permeableSwitchSound;
+    [SerializeField] AudioClip enterObjectSound;
 
 
     void Start()
@@ -31,6 +37,9 @@ public class SnotController : MonoBehaviour
 
         myRigidbody = GetComponent<Rigidbody2D>();
         highlighter = GetComponent<Highlighter>();
+
+        audioSource = GetComponent<AudioSource>();
+        Debug.Log(audioSource);
     }
 
 
@@ -96,6 +105,8 @@ public class SnotController : MonoBehaviour
 
             highlighter?.HighlightOff();
         }
+
+        AudioManager.PlayShot(audioSource, permeableSwitchSound);
     }
 
 
@@ -122,6 +133,8 @@ public class SnotController : MonoBehaviour
         controllable.SetIsBeingControlled(true);
 
         TakeOver(controllable.gameObject);
+
+        AudioManager.PlayShot(audioSource, enterObjectSound);
     }
 
 
@@ -149,8 +162,12 @@ public class SnotController : MonoBehaviour
 
     void OnJump()
     {
-        if (!isControllingObject) return;
-        LeaveControllableObject();
+        AudioManager.PlayShot(audioSource, jumpSound);
+
+        if (isControllingObject)
+        {
+            LeaveControllableObject();
+        }
     }
 
 

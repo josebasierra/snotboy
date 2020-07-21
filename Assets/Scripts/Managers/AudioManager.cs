@@ -54,18 +54,27 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    public void PlayShot(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.Log("Missing audio clip");
+        }
+        audioSource.PlayOneShot(clip);
+    }
+
+
     public void PlayMusic(AudioClip music)
     {
+        if (music == null)
+        {
+            Debug.Log("Missing music clip");
+            return;
+        }
         if (music == audioSource.clip) return;
 
         audioSource.clip = music;
         audioSource.Play();
-    }
-
-
-    public void PlayButtonSound()
-    {
-        audioSource.PlayOneShot(buttonSound);
     }
 
 

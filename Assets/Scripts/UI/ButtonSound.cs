@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ButtonSound : MonoBehaviour
 {
+    [SerializeField] AudioClip clip;
     Button button;
 
     void Start()
@@ -16,6 +17,6 @@ public class ButtonSound : MonoBehaviour
 
     void PlayButtonSound()
     {
-        AudioManager.Instance().PlayButtonSound();
+        AudioManager.Instance().PlayShot(clip);
     }
 }

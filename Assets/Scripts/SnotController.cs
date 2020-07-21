@@ -39,7 +39,6 @@ public class SnotController : MonoBehaviour
         highlighter = GetComponent<Highlighter>();
 
         audioSource = GetComponent<AudioSource>();
-        Debug.Log(audioSource);
     }
 
 

@@ -362,11 +362,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23473a1c0558594db1ce45b7bf9dd58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForce: 60
+  shootForce: 75
   shootDelay: 1
   shootCooldown: 1
   needsAmmunition: 1
-  ammunition: 1
+  ammunition: 0
   objectToShoot: {fileID: 3884233218463187358, guid: f9f18b4e9dbb51647bbc09531bd4bbee,
     type: 3}
   releasePoint: {fileID: 2000724617292140251}

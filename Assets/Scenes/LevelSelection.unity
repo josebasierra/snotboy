@@ -1021,6 +1021,149 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dbce8d6cad96c942a799bf6ade9a728, type: 3}
+--- !u!1001 &1766710689
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 215307282644841628, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_Name
+      value: LevelNode (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 935892001128047569, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -3585746315418980271, guid: 46308ae2d9be3714a81b6995bdfc6730,
+        type: 2}
+    - target: {fileID: 1375853260448028294, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: LevelName
+      value: Small river
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3585746315418980271, guid: 46308ae2d9be3714a81b6995bdfc6730,
+        type: 2}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_text
+      value: 'Don''t let a small river stop you
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345260574001910190, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7357553173471965866, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.7921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 7357553173471965866, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.6770429
+      objectReference: {fileID: 0}
+    - target: {fileID: 7357553173471965866, guid: 1dbce8d6cad96c942a799bf6ade9a728,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.32549024
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1dbce8d6cad96c942a799bf6ade9a728, type: 3}
 --- !u!1001 &1968353698
 PrefabInstance:
   m_ObjectHideFlags: 0

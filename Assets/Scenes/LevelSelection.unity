@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -904,12 +904,12 @@ PrefabInstance:
     - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 16
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
@@ -935,24 +935,24 @@ PrefabInstance:
     - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_text
-      value: 'The great tower
+      value: 'Box nightmare
 
 '
       objectReference: {fileID: 0}
     - target: {fileID: 1402146578900009467, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.72
+      value: 8.08
       objectReference: {fileID: 0}
     - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.56742704
+      value: 3.29
       objectReference: {fileID: 0}
     - target: {fileID: 3640942082243463500, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
@@ -1007,17 +1007,17 @@ PrefabInstance:
     - target: {fileID: 7357553173471965866, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.9339623
+      value: 0.8207547
       objectReference: {fileID: 0}
     - target: {fileID: 7357553173471965866, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.6173619
+      value: 0.25703803
       objectReference: {fileID: 0}
     - target: {fileID: 7357553173471965866, guid: 1dbce8d6cad96c942a799bf6ade9a728,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.2687344
+      value: 0.081301175
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dbce8d6cad96c942a799bf6ade9a728, type: 3}

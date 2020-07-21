@@ -108,12 +108,12 @@ TextureImporter:
       name: cannon_weapon_ball_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 9
-        width: 31
-        height: 14
+        x: 8
+        y: 8
+        width: 33
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,7 +134,7 @@ TextureImporter:
         width: 13
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

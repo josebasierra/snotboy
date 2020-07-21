@@ -16,13 +16,6 @@ public class SnotController : MonoBehaviour
 
     Highlighter highlighter;
     Rigidbody2D myRigidbody;
-    SnotJump snotJump;
-
-
-    public bool IsControllingObject()
-    {
-        return isControllingObject;
-    }
 
 
     void Start()
@@ -37,27 +30,19 @@ public class SnotController : MonoBehaviour
         cameraController.SetTarget(controlledObject.transform);
 
         myRigidbody = GetComponent<Rigidbody2D>();
-        snotJump = GetComponent<SnotJump>();
         highlighter = GetComponent<Highlighter>();
+    }
+
+
+    void OnEnable()
+    {
+        GetComponent<ExperimentalJump>().OnJump += OnJump;
     }
 
 
     void Update()
     {
         CheckControlledObject();
-
-        // snot jump
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 lookDirection = (mousePosition - (Vector2)transform.position).normalized;
-        if (Input.GetButtonDown("Fire2"))
-        {
-            if (isControllingObject && !snotJump.IsOnCooldown())
-            {
-                LeaveControllableObject();
-            }
-            bool needsGroundToJump = !isControllingObject;
-            snotJump.Jump(lookDirection, needsGroundToJump);
-        }
 
         // permeable mode
         if (Input.GetKeyDown(KeyCode.F) && !isControllingObject)
@@ -72,7 +57,6 @@ public class SnotController : MonoBehaviour
         CheckControlledObject();
 
         isControllingObject = (controlledObject != this.gameObject && controlledObject != null);
-     
         this.transform.position = controlledObject.transform.position;
         
 
@@ -133,6 +117,8 @@ public class SnotController : MonoBehaviour
     void EnterControllableObject(Controllable controllable)
     {
         ActivateSnot(false);
+        myRigidbody.velocity = Vector2.zero;
+
         controllable.SetIsBeingControlled(true);
 
         TakeOver(controllable.gameObject);
@@ -142,7 +128,7 @@ public class SnotController : MonoBehaviour
     void LeaveControllableObject()
     {
         ActivateSnot(true);
-        GetComponent<Rigidbody2D>().velocity = controlledObject.GetComponent<Rigidbody2D>().velocity;
+        //myRigidbody.velocity += controlledObject.GetComponent<Rigidbody2D>().velocity;
 
         controlledObject.GetComponent<Controllable>().SetIsBeingControlled(false);
 
@@ -158,6 +144,13 @@ public class SnotController : MonoBehaviour
             ActivateSnot(true);
             TakeOver(this.gameObject);
         }
+    }
+
+
+    void OnJump()
+    {
+        if (!isControllingObject) return;
+        LeaveControllableObject();
     }
 
 
@@ -181,5 +174,11 @@ public class SnotController : MonoBehaviour
         {
             insideControllableCollider = false;
         }
+    }
+
+
+    void OnDisable()
+    {
+        GetComponent<ExperimentalJump>().OnJump -= OnJump;
     }
 }

@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Win notified to Game Manager");
-        Debug.Log(OnWin);
         OnWin?.Invoke();
     }
 

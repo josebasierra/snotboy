@@ -25,7 +25,6 @@ public class WinMenu : MonoBehaviour
 
     void OnWin()
     {
-        Debug.Log("ok");
         canvasObject.SetActive(true);
     }
 }

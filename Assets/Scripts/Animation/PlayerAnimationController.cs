@@ -29,7 +29,7 @@ public class PlayerAnimationController : MonoBehaviour
             if (Mathf.Sign(newScale.x) != Mathf.Sign(inputDirection.x)) newScale.x *= -1;
             transform.localScale = newScale;
 
-            animator.SetTrigger("move");
+            //animator.SetTrigger("move");
         }
         else
         {

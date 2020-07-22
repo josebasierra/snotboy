@@ -33,8 +33,6 @@ public class Controllable : MonoBehaviour
 
         if (value)
             underControlHighlighter.HighlightOn();
-        else if (mouseOver)
-            highlighter.HighlightOn();
         else
             underControlHighlighter.HighlightOff();;
     }

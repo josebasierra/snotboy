@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 5052982392432994262}
   - component: {fileID: 5052982392432994263}
   - component: {fileID: 5052982392432994260}
-  - component: {fileID: 5052982392432994261}
+  - component: {fileID: 8774407466952963482}
   - component: {fileID: -1370134879563238763}
   m_Layer: 0
   m_Name: Toaster
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: {x: 1, y: 1}
   jumpCooldown: 0.5
---- !u!114 &5052982392432994261
+--- !u!114 &8774407466952963482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5052982392432994258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d23473a1c0558594db1ce45b7bf9dd58, type: 3}
+  m_Script: {fileID: 11500000, guid: 48a9ad84edec0dd47ac4f0e825ba283b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shootForce: 10
@@ -210,11 +210,17 @@ MonoBehaviour:
   shootCooldown: 1
   needsAmmunition: 1
   ammunition: 2
+  maxAmmunition: 2
   objectToShoot: {fileID: 6205335668764947483, guid: 566dc304b7966ce408d3ea7ce766e06a,
     type: 3}
   releasePoint: {fileID: 5052982392119336624}
   clickSound: {fileID: 8300000, guid: 5d4e31def063cf64d968ff2fc5ffbf83, type: 3}
   shootSound: {fileID: 0}
+  empty: {fileID: -7688980531593472791, guid: 4fc9e52083760504193328d0cff4d097, type: 3}
+  oneToast: {fileID: 2918967209428658110, guid: 4fc9e52083760504193328d0cff4d097,
+    type: 3}
+  twoToast: {fileID: 8507819231054640982, guid: 4fc9e52083760504193328d0cff4d097,
+    type: 3}
 --- !u!82 &-1370134879563238763
 AudioSource:
   m_ObjectHideFlags: 0

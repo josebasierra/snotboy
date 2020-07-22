@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2000724616309346390}
   - component: {fileID: 2000724616309346391}
   - component: {fileID: 2000724616309346387}
+  - component: {fileID: 8548674051796857041}
   - component: {fileID: 2000724616309346388}
   - component: {fileID: 2000724616309346385}
   - component: {fileID: 77698253491693224}
-  - component: {fileID: 3971339873874242659}
   m_Layer: 10
   m_Name: Cannon
   m_TagString: Untagged
@@ -109,6 +109,39 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &8548674051796857041
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000724616309347240}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8125, y: 0.78125}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.13254452, y: 0.39254498}
+      - {x: -0.4004898, y: 0.116390586}
+      - {x: -0.4004898, y: -0.13314176}
+      - {x: -0.18193674, y: -0.39254522}
+      - {x: 0.15472412, y: -0.3944652}
+      - {x: 0.40013838, y: -0.18295074}
+      - {x: 0.3947296, y: 0.12704921}
+      - {x: 0.119104385, y: 0.39638507}
 --- !u!233 &2000724616309346388
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -160,32 +193,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: {x: 25, y: 25}
   jumpCooldown: 0.5
---- !u!61 &3971339873874242659
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000724616309347240}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0012304783, y: -0.0012304187}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8125, y: 0.78125}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.7805095, y: 0.74433815}
-  m_EdgeRadius: 0
 --- !u!1 &2000724616504722524
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +374,7 @@ MonoBehaviour:
   shootCooldown: 1
   needsAmmunition: 1
   ammunition: 0
+  maxAmmunition: 1
   objectToShoot: {fileID: 3884233218463187358, guid: f9f18b4e9dbb51647bbc09531bd4bbee,
     type: 3}
   releasePoint: {fileID: 2000724617292140251}

@@ -10,8 +10,10 @@ namespace Interactables
         [SerializeField] float shootForce = 30f;
         [SerializeField] float shootDelay = 1f;
         [SerializeField] float shootCooldown = 1f;
+
         [SerializeField] bool needsAmmunition = false;
-        [SerializeField] int ammunition = 0;  //does not require ammunition if value = -1 
+        [SerializeField] protected int ammunition = 0;  //does not require ammunition if value = -1 
+        [SerializeField] int maxAmmunition = 2;
 
         [SerializeField] GameObject objectToShoot;
         [SerializeField] Transform releasePoint;
@@ -24,7 +26,7 @@ namespace Interactables
         AudioSource audioSource;
 
 
-        void Start()
+        protected void Start()
         {
             audioSource = GetComponent<AudioSource>();
         }
@@ -45,7 +47,7 @@ namespace Interactables
         }
 
 
-        void Shoot()
+        protected virtual void Shoot()
         {
             var firedObject = Instantiate(objectToShoot);
             firedObject.name = objectToShoot.name;
@@ -58,6 +60,12 @@ namespace Interactables
         }
 
 
+        protected virtual void Reload()
+        {
+            ammunition++;
+        }
+
+
         void EnableShoot()
         {
             isShotOnCooldown = false;
@@ -66,10 +74,10 @@ namespace Interactables
 
         void OnCollisionStay2D(Collision2D collision)
         {
-            if (needsAmmunition && objectToShoot.name == collision.gameObject.name)
+            if (needsAmmunition && ammunition < maxAmmunition && !objectToShoot.CompareTag("Untagged") && objectToShoot.CompareTag(collision.gameObject.tag))
             {
                 Destroy(collision.gameObject);
-                ammunition++;
+                Reload();
             }
         }
     }

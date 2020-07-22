@@ -22,4 +22,9 @@ public class DefeatMessage : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(true);
     }
+
+    void OnDestroy()
+    {
+        GameManager.Instance().OnDefeat -= OnDefeat;
+    }
 }

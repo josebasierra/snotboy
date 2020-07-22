@@ -18,6 +18,18 @@ namespace Utility
 
             return false;
         }
+
+
+        public static float KineticEnergy(float mass, float v_magnitude)
+        {
+            return 0.5f * mass * v_magnitude * v_magnitude;
+        }
+
+
+        public static float KineticEnergy(float mass, Vector2 v)
+        {
+            return 0.5f * mass * v.magnitude * v.magnitude;
+        }
     }
 }
 

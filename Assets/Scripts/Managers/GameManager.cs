@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Material defaultHighlightMaterial;
     [SerializeField] Material defaultUnderControlMaterial;
 
-    public event Action OnWin;
+    public event Action OnWin, OnDefeat;
     static GameManager instance;
 
     public static GameManager Instance()
@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
         return defaultUnderControlMaterial;
     }
 
+    public void Defeat()
+    {
+        Debug.Log("Defeat notified to Game Manager");
+        OnDefeat?.Invoke();
+    }
 
     public void Win()
     {

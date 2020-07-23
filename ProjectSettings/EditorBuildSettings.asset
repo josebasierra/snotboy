@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Small river.unity
     guid: b02037cd104c16b419ed7ef886012e7f
+  - enabled: 1
+    path: Assets/Scenes/Levels/fly.unity
+    guid: c074e774adc279745a990e2a10a26186
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 3.unity
+    guid: 93c76d7709bd72243bee7294ea882fe1
   m_configObjects: {}

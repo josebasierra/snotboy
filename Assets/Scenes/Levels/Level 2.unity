@@ -790,15 +790,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8799737192467642092, guid: 669302ac43dea8343910df60bf5ba045,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.4799986
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799737192467642092, guid: 669302ac43dea8343910df60bf5ba045,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.71882343
+      objectReference: {fileID: 0}
     - target: {fileID: 8799737193954970635, guid: 669302ac43dea8343910df60bf5ba045,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.0056591034
+      value: -0.0029997826
       objectReference: {fileID: 0}
     - target: {fileID: 8799737193954970635, guid: 669302ac43dea8343910df60bf5ba045,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.5192499
+      value: 0.1170001
       objectReference: {fileID: 0}
     - target: {fileID: 8799737194505505569, guid: 669302ac43dea8343910df60bf5ba045,
         type: 3}
@@ -1073,15 +1083,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8799737192467642092, guid: 669302ac43dea8343910df60bf5ba045,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.47999978
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799737192467642092, guid: 669302ac43dea8343910df60bf5ba045,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.71882343
+      objectReference: {fileID: 0}
     - target: {fileID: 8799737193954970635, guid: 669302ac43dea8343910df60bf5ba045,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.0056585073
+      value: -0.003000021
       objectReference: {fileID: 0}
     - target: {fileID: 8799737193954970635, guid: 669302ac43dea8343910df60bf5ba045,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.5192499
+      value: 0.1170001
       objectReference: {fileID: 0}
     - target: {fileID: 8799737194505505569, guid: 669302ac43dea8343910df60bf5ba045,
         type: 3}
@@ -1211,6 +1231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Global Light 2D
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875545694117190223, guid: 77d523fc1e0a67f438bc12f126bb1854,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77d523fc1e0a67f438bc12f126bb1854, type: 3}

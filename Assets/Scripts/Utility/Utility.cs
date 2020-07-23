@@ -13,7 +13,7 @@ namespace Utility
 
             foreach (var contact in contactPoints)
             {
-                if (contact.point.y < position.y) return true;
+                if (contact.point.y < position.y - 0.1f) return true;
             }
 
             return false;

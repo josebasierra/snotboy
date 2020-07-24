@@ -483,7 +483,7 @@ PrefabInstance:
     - target: {fileID: 3595653170828356964, guid: c0778809e2d4b734a9e03a948d456bbf,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 116
+      value: 117
       objectReference: {fileID: 0}
     - target: {fileID: 3595653170828356964, guid: c0778809e2d4b734a9e03a948d456bbf,
         type: 3}
@@ -508,7 +508,7 @@ PrefabInstance:
     - target: {fileID: 3595653170828356964, guid: c0778809e2d4b734a9e03a948d456bbf,
         type: 3}
       propertyPath: m_text
-      value: 'Pess "F" to change into permeable mode.
+      value: 'Press "F" to change into permeable mode.
 
 
         While you''re permeable
@@ -2183,6 +2183,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7295236689576017960, guid: 34ec73eaff952b14dbbec75bf16528c2,
+        type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 8300000, guid: 02ed53b81e721284ca99889f93953765, type: 3}
     - target: {fileID: 7295236689576017961, guid: 34ec73eaff952b14dbbec75bf16528c2,
         type: 3}
       propertyPath: m_Name

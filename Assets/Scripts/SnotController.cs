@@ -172,6 +172,7 @@ public class SnotController : MonoBehaviour
         var controllable = collision.GetComponent<Controllable>();
         if (permeableMode && !isControllingObject && controllable != null && controllable.IsAvailable())
         {
+            isControllingObject = true;
             EnterControllableObject(controllable);
         }
         if (controllable != null)

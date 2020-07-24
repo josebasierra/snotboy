@@ -10,13 +10,15 @@ namespace Interactables
         [SerializeField] GameObject switchableObject;
         [SerializeField] float switchCooldown = 1f;
 
-        bool isOnCooldown = false;
-        bool state = false;
+        private bool isOnCooldown = false;
+        private bool state = false;
 
         [Header("Sounds")]
         [SerializeField] AudioClip clickSound;
         AudioSource audioSource;
 
+        public bool State => state;
+        
         void Start()
         {
             switchableObject.SetActive(state);
@@ -49,5 +51,6 @@ namespace Interactables
         {
             isOnCooldown = false;
         }
+        
     }
 }

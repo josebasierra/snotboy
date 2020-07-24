@@ -26,11 +26,13 @@ public class PauseMenu : MonoBehaviour
         {
             if (!isPaused && canPause)
             {
+                isPaused = true;
                 canvasObject.SetActive(true);
                 GameManager.Instance().Pause();
             }
             else if (isPaused)
             {
+                isPaused = false;
                 canvasObject.SetActive(false);
                 GameManager.Instance().Continue();
             }

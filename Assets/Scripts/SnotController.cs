@@ -24,6 +24,9 @@ public class SnotController : MonoBehaviour
     [SerializeField] AudioClip enterObjectSound;
 
 
+    public bool IsInsideControllableCollider() => insideControllableCollider;
+
+
     void Start()
     {
         controlledObject = this.gameObject;
@@ -39,12 +42,6 @@ public class SnotController : MonoBehaviour
         highlighter = GetComponent<Highlighter>();
 
         audioSource = GetComponent<AudioSource>();
-    }
-
-
-    void OnEnable()
-    {
-        GetComponent<ExperimentalJump>().OnJump += OnJump;
     }
 
 
@@ -193,8 +190,14 @@ public class SnotController : MonoBehaviour
     }
 
 
+    void OnEnable()
+    {
+        GetComponent<SnotJump>().OnJump += OnJump;
+    }
+
+
     void OnDisable()
     {
-        GetComponent<ExperimentalJump>().OnJump -= OnJump;
+        GetComponent<SnotJump>().OnJump -= OnJump;
     }
 }

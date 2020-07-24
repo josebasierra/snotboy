@@ -40,7 +40,7 @@ namespace Movement
             if (ControlledDirectly() && !CanMoveItself) return;
 
             myRigidbody.AddForce(direction.normalized * Force);
-            myRigidbody.velocity = Vector2.ClampMagnitude(myRigidbody.velocity, MaxSpeed);
+            //myRigidbody.velocity = Vector2.ClampMagnitude(myRigidbody.velocity, MaxSpeed);
 
             var maxHeight = initialHeight + MaxHeight;
             if (gameObject.transform.position.y > maxHeight)
@@ -48,6 +48,12 @@ namespace Movement
                 var o = gameObject;
                 o.transform.position = new Vector2(o.transform.position.x, maxHeight);
             }
+        }
+
+
+        void FixedUpdate()
+        {
+            myRigidbody.velocity = Vector2.ClampMagnitude(myRigidbody.velocity, MaxSpeed);
         }
     }
 }

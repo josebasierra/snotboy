@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7295236689576017960, guid: 34ec73eaff952b14dbbec75bf16528c2,
+        type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 8300000, guid: 1fc3de4bb77b2fe43a101c5760a2cd85, type: 3}
     - target: {fileID: 7295236689576017961, guid: 34ec73eaff952b14dbbec75bf16528c2,
         type: 3}
       propertyPath: m_Name
@@ -1352,6 +1357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082562386217567641, guid: 682d939e878b3754884b4c81d061333c,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5082562386217567642, guid: 682d939e878b3754884b4c81d061333c,
         type: 3}

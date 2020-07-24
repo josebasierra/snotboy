@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 2154941946411712258}
   - component: {fileID: 1512728721359772785}
   - component: {fileID: 2322239763386225700}
+  - component: {fileID: -5322018815900878746}
   - component: {fileID: 1239440295}
   - component: {fileID: 5194037897610388660}
   - component: {fileID: 782180890637128662}
@@ -224,6 +225,21 @@ MonoBehaviour:
   jumpForce: {x: 0.5, y: 2}
   lateralForce: 2
   extendForce: 2
+--- !u!114 &-5322018815900878746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411761555110584662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05a66f835a59f044f8458d98df8d3012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 8522843202292238267, guid: a6572d6c72b144c4bac29f5616739b47,
+    type: 3}
+  deathSound: {fileID: 8300000, guid: d2c4216d30628554cbee04dbc5853ba3, type: 3}
 --- !u!114 &1239440295
 MonoBehaviour:
   m_ObjectHideFlags: 0

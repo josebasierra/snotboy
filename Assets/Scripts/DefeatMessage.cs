@@ -6,25 +6,47 @@ public class DefeatMessage : MonoBehaviour
 {
     Transform playerTransform;
 
+    GameObject snotPrincess;
+    Death snotPrincessDeath;
+
+    GameObject defeatMessage;
+
+
     void Start()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        GameManager.Instance().OnDefeat += OnDefeat;
+        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        snotPrincess = GameObject.FindGameObjectWithTag("Princess");
+        defeatMessage = transform.GetChild(0).gameObject;
+
+        defeatMessage.SetActive(false);
+
+        if (snotPrincess != null) snotPrincessDeath = snotPrincess.GetComponent<Death>();
+
+        if (snotPrincessDeath != null)
+        {
+            snotPrincessDeath.OnDeath += OnDeath;
+        }
     }
+
 
     void FixedUpdate()
     {
-        transform.position = playerTransform.position;
+        if (playerTransform != null)
+            transform.position = playerTransform.position;
     }
 
-    void OnDefeat()
+
+    void OnDeath()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
+        defeatMessage.SetActive(true);
     }
 
-    void OnDestroy()
+
+    private void OnDestroy()
     {
-        GameManager.Instance().OnDefeat -= OnDefeat;
+        if (snotPrincess != null && snotPrincessDeath != null)
+        {
+            snotPrincessDeath.OnDeath -= OnDeath;
+        }
     }
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utility;
 using System;
-public class ExperimentalJump : MonoBehaviour
+
+
+public class SnotJump : MonoBehaviour
 {
     [SerializeField] Vector2 jumpForce = Vector2.one;
     [SerializeField] float lateralForce = 1f;
@@ -95,10 +97,12 @@ public class ExperimentalJump : MonoBehaviour
         this.direction = direction;
     }
 
+
     void EnableJump()
     {
         isOnCooldown = false;
     }
+
 
     void ReadInput()
     {

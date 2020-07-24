@@ -5,8 +5,6 @@ using UnityEngine;
 public class FemaleSnotBehaviour : MonoBehaviour
 {
     [SerializeField] float impactForceToKill = 1f;
-    [SerializeField] GameObject deathEffect;
-    [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip loveSound;
 
 
@@ -22,12 +20,7 @@ public class FemaleSnotBehaviour : MonoBehaviour
         Debug.Log(impactForce);
         if (impactForce >= impactForceToKill)
         {
-            var effect = Instantiate(deathEffect);
-            effect.transform.position = this.transform.position;
-            Destroy(this.gameObject);
-
-            GameManager.Instance().Defeat();
-            AudioManager.Instance().PlayShot(deathSound);
+            GetComponent<Death>()?.Die();
         }
         else if (collision.gameObject.CompareTag("Player"))
         {

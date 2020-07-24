@@ -7,6 +7,7 @@ TagManager:
   - Pause Menu
   - toast
   - cannonball
+  - Princess
   layers:
   - Default
   - TransparentFX

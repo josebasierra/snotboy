@@ -27,14 +27,12 @@ public class PauseMenu : MonoBehaviour
             if (!isPaused && canPause)
             {
                 canvasObject.SetActive(true);
-                Time.timeScale = 0;
-                isPaused = true;
+                GameManager.Instance().Pause();
             }
             else if (isPaused)
             {
                 canvasObject.SetActive(false);
-                Time.timeScale = 1;
-                isPaused = false;
+                GameManager.Instance().Continue();
             }
         }
     }
@@ -48,7 +46,6 @@ public class PauseMenu : MonoBehaviour
 
     void OnDestroy()
     {
-        Time.timeScale = 1;
         GameManager.Instance().OnWin -= OnWin;
     }
 }

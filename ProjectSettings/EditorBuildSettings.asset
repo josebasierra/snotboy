@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level 3.unity
     guid: 93c76d7709bd72243bee7294ea882fe1
   - enabled: 1
+    path: Assets/Scenes/Levels/Level 2.unity
+    guid: 9509bb8f71e23c6439a3b669fb000945
+  - enabled: 1
     path: Assets/Scenes/Levels/Lightweight princess.unity
     guid: 90ed4a57683ac174a8e6acaa07d13534
   m_configObjects: {}

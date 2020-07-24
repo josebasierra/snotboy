@@ -10,8 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] Material defaultHighlightMaterial;
     [SerializeField] Material defaultUnderControlMaterial;
 
-    public event Action OnWin, OnDefeat;
+    public event Action OnWin;
     static GameManager instance;
+
+    bool isPaused = false;
+    float currentLevelTime = 0f;
+
 
     public static GameManager Instance()
     {
@@ -33,6 +37,15 @@ public class GameManager : MonoBehaviour
     }
 
 
+    void Update()
+    {
+        if (!isPaused)
+        {
+            currentLevelTime += Time.deltaTime;
+        }
+    }
+
+
     public Material GetHighlightMaterial()
     {
         return defaultHighlightMaterial;
@@ -43,38 +56,43 @@ public class GameManager : MonoBehaviour
         return defaultUnderControlMaterial;
     }
 
-    public void Defeat()
+    public float GetCurrentLevelTime()
     {
-        Debug.Log("Defeat notified to Game Manager");
-        OnDefeat?.Invoke();
+        return currentLevelTime;
     }
 
     public void Win()
     {
-        Debug.Log("Win notified to Game Manager");
         OnWin?.Invoke();
+        Debug.Log("Level completed in " + currentLevelTime.ToString());
     }
 
-
-    //scene management
-
-    public void LoadScene(int sceneId)
+    public void Pause()
     {
-        SceneManager.LoadScene(sceneId);
+        isPaused = true;
+        Time.timeScale = 0;
     }
 
+    public void Continue()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
+    }
+
+
+    // Scene management
 
     public void LoadScene(string sceneName)
     {
+        Continue();
+        currentLevelTime = 0;
         SceneManager.LoadScene(sceneName);
     }
 
-
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LoadScene(SceneManager.GetActiveScene().name);
     }
-
 
     public void QuitGame()
     {

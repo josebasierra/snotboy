@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] AudioClip buttonSound;
     AudioSource audioSource;
     Transform mainCamera;
+    bool musicStopped = false;
 
     static AudioManager instance;
     public static AudioManager Instance()
@@ -30,6 +30,23 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown("m"))
+        {
+            if (!musicStopped) 
+            {
+                musicStopped = true;
+                audioSource.Stop();
+            }
+            else
+            {
+                musicStopped = false;
+                audioSource.Play();
+            }
+        }
+        
+    }
 
     void FixedUpdate()
     {
@@ -71,7 +88,10 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Missing music clip");
             return;
         }
-        if (music == audioSource.clip) return;
+        if (music == audioSource.clip)
+        {
+            return;
+        }
 
         audioSource.clip = music;
         audioSource.Play();
